@@ -25,3 +25,13 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+@layer base {
+  html {
+    font-family: Credit Card, system-ui, sans-serif;
+  }
+}
+
+.responsive-text {
+  font-size: calc(16px + (24 - 16) * ((100vw - 320px) / (1920 - 320)));
+}
