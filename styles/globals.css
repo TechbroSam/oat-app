@@ -35,3 +35,75 @@ body {
 .responsive-text {
   font-size: calc(16px + (24 - 16) * ((100vw - 320px) / (1920 - 320)));
 }
+
+.bg-animate {
+  background-size: 100%;
+
+  -webkit-animation: AnimationName 3s ease infinite;
+  -moz-animation: AnimationName 3s ease infinite;
+  animation: AnimationName 3s ease infinite;
+}
+
+@keyframes AnimationName {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.lit {
+  background: -webkit-radial-gradient(bottom, circle, white, #50acbd);
+  background: radial-gradient(at bottom, circle, white, #50acbd);
+  -webkit-animation: FADE-IN 10s infinite;
+  -moz-animation: FADE-IN 10s infinite;
+  -o-animation: FADE-IN 10s infinite;
+  animation: FADE-IN 10s infinite;
+}
+
+@-webkit-keyframes FADE-IN {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@-moz-keyframes FADE-IN {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@-o-keyframes FADE-IN {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes FADE-IN {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

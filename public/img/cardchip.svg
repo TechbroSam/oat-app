@@ -1,7 +1,7 @@
-<svg width="138" height="102" viewBox="0 0 138 102" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="138" height="102" fill="#1E1E1E"/>
+<svg width="138" height="102" viewBox="0 0 138 102" fill="#F2C572" xmlns="http://www.w3.org/2000/svg">
+<rect width="138" height="102" fill="#F2C572"/>
 <g id="Desktop - 1">
-<rect width="1440" height="2600" transform="translate(-171 -1007)" fill="black"/>
+<rect width="1440" height="2600" transform="translate(-171 -1007)" fill="none"/>
 <g id="card front">
 <g id="Rectangle 1" filter="url(#filter0_d_0_1)">
 <rect x="-58.5" y="-188.5" width="1216" height="712" rx="54.5" stroke="#F2C572" stroke-width="3" shape-rendering="crispEdges"/>
