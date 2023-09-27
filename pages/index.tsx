@@ -1,13 +1,26 @@
 import Image from "next/image";
 import Head from "next/head";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <div className="bg-[#0D0D0D] p-3">
+    <div className="area">
       <Navbar />
-      <main className="flex min-h-screen flex-col items-center justify-center ">
-        <div className="flex items-center justify-center mt-[-70%] md:mt-[70px]">
+      <ul className="circles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <main className="flex min-h-screen flex-col items-center justify-center">
+        <div className="flex items-center justify-center mt-[20%] sm:mt-[-50%] lg:mt-[8%]">
           <h1
             className="flex text-[#F2C572] text-lg justify-center items-center text-center 
           md:leading-snug md:text-5xl"
@@ -18,14 +31,14 @@ export default function Home() {
           </h1>
         </div>
         <div>
-          <h2 className="text-slate-300 justify-center text-center text-sm mt-3 mb-12 md:mt-6 md:text-2xl">
+          <h2 className="text-slate-300 justify-center text-center px-5 text-xs mt-3 mb-12 md:mt-6 md:text-2xl">
             "DEAR <span className="text-[#F2C572]">ANON</span>, BE THE CHANGE
             YOU WANT TO SEE IN <span className="text-[#F2C572]">CRYPTO</span>."
           </h2>
         </div>
 
         {/* Card Section */}
-        <div className="relative">
+        <div className="relative mb-40 md:mb-80">
           <div
             className="absolute blur-sm md:blur-md -inset-0.5 transition duration-200 bg-gradient-to-r
     from-[#C6FFDD]
@@ -35,15 +48,19 @@ export default function Home() {
           <div
             className="w-full flex flex-row items-center rounded-xl md:flex-row md:max-w-xl 
           shadow-2xl bg-[#262626] bg-opacity-40 backdrop-filter backdrop-blur-lg
-      transition-transform transform hover:scale-110 border border-[#F2C572] mt-5 md:mt-10"
+      transition-transform transform hover:scale-110 border border-[#F2C572] mt-5 md:mt-10 overflow-hidden md:px-10 px-5"
           >
-            <div className="w-full md:max-w-xl flex-col justify-between p-4 leading-normal">
+            <div className="w-full md:max-w-xl flex-col justify-between leading-normal">
               <div className="flex justify-between">
-                <h3 className="text-2xl md:text-5xl">
+                <h3 className="text-2xl md:text-5xl pt-5">
                   O<span className="text-[#F2C572]">A</span>T
                 </h3>
+                <div className="flex mt-[-5%] relative">
+                  <div className="absolute top-0 left-0 rounded-full w-10 h-10 md:w-20 md:h-20 bg-[#F2C572] mx-6 md:mx-12 my-1 md:my-2 opacity-40 shadow-lg"></div>
+                  <div className="absolute top-0 left-0 rounded-full w-10 h-10 md:w-20 md:h-20 bg-[#BF8924] opacity-40 shadow-lg"></div>
+                </div>
                 <Image
-                  className="w-4 md:w-6"
+                  className="w-4 md:w-6 mt-5"
                   src="/img/contactless.png"
                   alt=""
                   width="24"
@@ -59,9 +76,8 @@ export default function Home() {
                   height="0"
                 />
               </div>
-
               <div className="flex justify-center mt-3 md:mt-6">
-                <h3 className="text-[0.625rem] md:text-[1.0625rem]">
+                <h3 className="text-[0.625rem] md:text-[1rem]">
                   0xf951ead486490bd64193fd2ea475697a9fd5d582
                 </h3>
               </div>
@@ -91,7 +107,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="flex justify-between px-7 md:px-11 pt-2 md:pt-5">
+              <div className="flex justify-between px-7 md:px-11 pt-2 md:pt-5 pb-5">
                 <div className="flex items-center">
                   <h6 className="text-[9px] md:text-sm mr-1 md:mr-2 text-[#F2C572]">
                     CONTRACT
@@ -115,6 +131,7 @@ export default function Home() {
             </div>
           </div>
         </div>
+        <Footer />
       </main>
       <Head>
         <title>OAT | One Anon at a Time</title>
