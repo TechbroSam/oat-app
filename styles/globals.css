@@ -23,7 +23,7 @@ body {
 
 @layer base {
   html {
-    font-family: Credit Card, system-ui, sans-serif;
+    font-family: poppins, system-ui, sans-serif;
   }
 }
 
@@ -157,7 +157,6 @@ body {
 */
 .area {
   width: 100%;
-  position: absolute;
 }
 
 .circles {
@@ -173,8 +172,8 @@ body {
   width: 20px;
   height: 20px;
   background: rgba(255, 255, 255, 0.2);
-  animation: animate 25s linear infinite;
-  bottom: -150px;
+  animation: animate 30s linear infinite;
+  bottom: 1px;
 }
 
 .circles li:nth-child(1) {
@@ -189,7 +188,7 @@ body {
   width: 20px;
   height: 20px;
   animation-delay: 2s;
-  animation-duration: 12s;
+  animation-duration: 24s;
 }
 
 .circles li:nth-child(3) {
@@ -204,7 +203,7 @@ body {
   width: 60px;
   height: 60px;
   animation-delay: 0s;
-  animation-duration: 18s;
+  animation-duration: 36s;
 }
 
 .circles li:nth-child(5) {
@@ -249,7 +248,7 @@ body {
   width: 150px;
   height: 150px;
   animation-delay: 0s;
-  animation-duration: 11s;
+  animation-duration: 22s;
 }
 
 @keyframes animate {

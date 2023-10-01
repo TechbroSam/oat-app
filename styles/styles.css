@@ -4,3 +4,27 @@
 .ul:hover {
   color: #f2c572;
 }
+
+.bg-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
+  overflow: hidden;
+}
+.bg-video__content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.inshadow {
+  box-shadow: inset 0 0 10px #3b3b3b60;
+}
+
+.inshadow2 {
+  box-shadow: inset 0 0 10px #1a1a1adc;
+}

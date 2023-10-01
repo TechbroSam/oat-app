@@ -71,7 +71,7 @@ function Footer() {
         </a>
       </div>
       <div className="rounded-md bg-[#F2C572] px-2 py-1 md:px-5 md:py-2 text-[#0d0d0d] my-5 ">
-        <h1 className="opacity-90 text-[10px] md:text-base">
+        <h1 className="opacity-90 text-[10px] md:text-base font-medium">
           LIQUIDITY SECURED BY OATLOCKER
         </h1>
       </div>
@@ -88,7 +88,7 @@ function Footer() {
       </div>
       <div className="flex items-center justify-center filter drop-shadow-md h-20 py-10 md:py-20 ">
         <img className="lg:w-16 w-10" src="/img/oat_logo.png" alt="" />
-        <div className="lg:text-6xl text-4xl">
+        <div className="lg:text-6xl text-4xl font-bold">
           O<span className="text-[#F2C572]">A</span>T
         </div>
       </div>
