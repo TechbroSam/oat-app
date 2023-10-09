@@ -1,6 +1,11 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
-function MobileNav({ open, setOpen }) {
+interface NavbarProps {
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const MobileNav: React.FC<NavbarProps> = ({ open, setOpen }) => {
   return (
     <div
       className={`pb-4 pl-2 absolute top-0 left-0 h-fit w-full drop-shadow-md md:hidden bg-[#0D0D0D] transform ${
@@ -61,11 +66,11 @@ function MobileNav({ open, setOpen }) {
             }, 100)
           }
         >
-          STAKE
+          STAKING
         </a>
         <a
           className="text-xl font-normal my-4 ulnav"
-          href="/contact"
+          href="/staking"
           onClick={() =>
             setTimeout(() => {
               setOpen(!open);
@@ -88,10 +93,11 @@ function MobileNav({ open, setOpen }) {
       </div>
     </div>
   );
-}
+};
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+
   return (
     <nav
       className="z-10 flex drop-shadow-md h-20 items-center bg-[#0D0D0D] py-1
@@ -117,11 +123,11 @@ export default function Navbar() {
               open ? "rotate-45 translate-y-3.5" : ""
             }`}
           />
-          <span
-            className={`h-1 w-full bg-white rounded-lg transition duration-300 ease-in-out ${
-              open ? "h-0 w-0 bg-[#00000000]" : ""
-            }`}
-          />
+          {!open && (
+            <span
+              className={`h-1 w-full bg-white rounded-lg transform transition duration-300 ease-in-out`}
+            />
+          )}
           <span
             className={`h-1 w-full bg-white rounded-lg transform transition duration-300 ease-in-out ${
               open ? "-rotate-45 -translate-y-3.5" : ""
@@ -145,8 +151,8 @@ export default function Navbar() {
           >
             <ul className="ulnav mx-4 md:text-xs lg:text-lg">LENDING</ul>
           </a>
-          <a href="/swap" target="_blank">
-            <ul className="ulnav mx-4 md:text-xs lg:text-lg">STAKE</ul>
+          <a href="/staking" target="_blank">
+            <ul className="ulnav mx-4 md:text-xs lg:text-lg">STAKING</ul>
           </a>
           <a
             href="https://www.facebook.com/profile.php?id=100089909078977"

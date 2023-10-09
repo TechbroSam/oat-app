@@ -5,23 +5,9 @@ import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <div className="lg:relative lg:area">
+    <div className="">
       <Navbar />
-
-      <ul className="circles">
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-      </ul>
-
-      <main className="flex min-h-screen flex-col items-center justify-center z-50">
+      <main className="flex min-h-screen flex-col items-center justify-center">
         <div className="antialiased flex items-center justify-center sm:mt-[5%] mt-[10%] md:mt-[10%] lg:mt-[8%]">
           <h1
             className="flex text-[#F2C572] font-bold text-[16px] justify-center items-center text-center 

@@ -17,6 +17,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/hamburger.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/hamburger.js", "components/Navbar.tsx", "pages/swap.js"],
   "exclude": ["node_modules"]
 }
