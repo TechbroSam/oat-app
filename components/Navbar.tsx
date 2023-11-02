@@ -100,7 +100,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className="z-10 flex drop-shadow-md h-20 items-center bg-[#0D0D0D] py-1
+      className="z-10 flex drop-shadow-lg h-20 items-center bg-[#0D0D0D] py-1
     px-5 md:py-11 md:px-[10%] sticky top-0 cursor-pointer"
     >
       <MobileNav open={open} setOpen={setOpen} />

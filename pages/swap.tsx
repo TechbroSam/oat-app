@@ -57,10 +57,10 @@ function swap() {
       <main className="min-w-full min-h-full top-0 left-0">
         <div className="flex flex-col items-center justify-center mt-16 md:mt-16">
           <div className="flex flex-col items-center">
-            <h1 className="antialiased text-4xl md:text-7xl font-[poppins] font-bold tracking-wide">
+            <h1 className="antialiased text-4xl md:text-7xl font-bold tracking-wide">
               O<span className="text-[#F2C572]">A</span>T SWAP
             </h1>
-            <h3 className="font-[poppins] mt-1 text-xs md:text-sm">
+            <h3 className="mt-1 text-xs md:text-sm">
               Dear <span className="text-[#F2C572]">Anon</span>, swap away with
               confidence.
             </h3>
@@ -75,7 +75,7 @@ function swap() {
          backdrop-blur-sm bg-opacity-30 pt-3 pb-5 pr-5 pl-5 inshadow2
          flex flex-col justify-center"
             >
-              <div className="flex justify-end pb-2 px-10">
+              <div className="flex justify-end pb-2 px-10 cursor-pointer">
                 <img
                   src="/img/settings.svg"
                   alt=""
@@ -96,7 +96,7 @@ function swap() {
                   />
                   <div className="shadow rounded-3xl bg-opacity-40 p-2 bg-gray-100 flex flex-row items-center justify-between space-x-2 px-3">
                     <img src="/img/eth.png" alt="" className="w-8 h-8" />
-                    <h2 className="font-[poppins] uppercase text-[#0d0d0d] text-2xl font-bold">
+                    <h2 className="uppercase text-[#0d0d0d] text-2xl font-bold">
                       eth
                     </h2>
                     <img src="/img/down1.svg" alt="" className="w-1 md:w-3" />
@@ -141,13 +141,13 @@ function swap() {
                 <div className="space-x-4 flex flex-row items-center justify-center">
                   <input
                     type="number"
-                    className="placeholder-[#5757577b] placeholder:text-3xl md:text-2xl font-bold text-[#0d0d0d] font-[poppins] !outline-none bg-transparent [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                    className="placeholder-[#5757577b] placeholder:text-3xl md:text-2xl font-bold text-[#0d0d0d] !outline-none bg-transparent [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                     placeholder="0"
                     required
                   />
                   <div className="shadow rounded-3xl bg-opacity-40 p-2 bg-gray-100 flex flex-row items-center justify-between space-x-2 px-3">
                     <img src="/img/eth.png" alt="" className="w-8 h-8" />
-                    <h2 className="font-[poppins] uppercase text-[#0d0d0d] text-2xl font-bold">
+                    <h2 className=" uppercase text-[#0d0d0d] text-2xl font-bold">
                       oat
                     </h2>
                     <img src="/img/down1.svg" alt="" className="w-1 md:w-3" />
@@ -221,7 +221,7 @@ function swap() {
               </AccordionBody>
             </Accordion>
             <button
-              className="flex justify-center bg-transparent w-full rounded-2xl text-[#0d0d0d]
+              className="flex justify-center bg-transparent w-full rounded-2xl text-[#0d0d0d] font-medium
           relative p-5 my-1 md:text-2xl hover:bg-[#0d0d0d] inshadow2 hover:text-white ease-in-out"
             >
               Connect Wallet
