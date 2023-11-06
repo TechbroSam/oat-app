@@ -64,12 +64,12 @@ export default function Home() {
                   height="0"
                 />
               </div>
-              <div className="flex justify-center mt-3 md:mt-6">
+              <div className="flex justify-center mt-3 md:mt-4">
                 <h3 className="text-[12px] md:text-xl font-bold drop-shadow-md">
                   0xf951ead486490bd64193fd2ea475697a9fd5d582
                 </h3>
               </div>
-              <div className="flex justify-between px-7 md:px-11 mt-2 md:pt-3">
+              <div className="flex justify-between px-7 md:px-11 mt-2 md:pt-1">
                 <div>
                   <h6 className="text-[8px] md:text-xs text-[#F2C572]">TS</h6>
                   <h4 className="text-[10px] md:text-[18px] font-medium">
@@ -83,7 +83,7 @@ export default function Home() {
                   </h4>
                 </div>
               </div>
-              <div className="flex justify-between px-20 mt-2 md:pt-3">
+              <div className="flex justify-between px-20 mt-2 md:pt-2">
                 <div className="flex items-center ml-4 md:ml-9 justify-center">
                   <h6 className="pr-1 md:pr-1 text-[8px] md:text-sm text-slate-300">
                     TAX
@@ -99,7 +99,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="flex justify-between px-7 md:px-11 pt-2 md:pt-5 pb-2 md:pb-5">
+              <div className="flex justify-between px-7 md:px-11 pt-2 md:pt-3 pb-2 md:pb-5">
                 <div className="flex items-center">
                   <h6 className="text-[8px] md:text-xs mr-1 md:mr-2 text-[#F2C572]">
                     CONTRACT

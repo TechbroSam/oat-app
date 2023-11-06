@@ -2,7 +2,10 @@ import React from "react";
 
 function Footer() {
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div
+      className="flex flex-col items-center justify-center shadow-[#F2C572]/40
+    shadow-[0_10px_10px_15px_rgba(0,0,0,0.1)] w-full"
+    >
       <div className="flex items-center justify-center py-6 md:py-12 md:space-x-8 space-x-4">
         <a
           className="flex w-7 h-7 md:w-14 md:h-14 bg-[#F2C572] rounded-full items-center justify-center"

@@ -4347,7 +4347,14 @@ tailwind-variants@^0.1.14:
   dependencies:
     tailwind-merge "^1.13.2"
 
-tailwindcss@*, tailwindcss@^3.2.7, tailwindcss@3.3.3:
+tailwindcss-directional-shadows@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.npmjs.org/tailwindcss-directional-shadows/-/tailwindcss-directional-shadows-0.0.6.tgz"
+  integrity sha512-od5i9g69itycUl/zWv9A1GbNBNzE3BSaKtzAiYE7CHkBJXv5Yy2xgedNMi3bTj+eZtnjs0Na7jdDocgEyLF3Lw==
+  dependencies:
+    tailwindcss "^3.2.4"
+
+tailwindcss@*, tailwindcss@^3.2.4, tailwindcss@^3.2.7, tailwindcss@3.3.3:
   version "3.3.3"
   resolved "https://registry.npmjs.org/tailwindcss/-/tailwindcss-3.3.3.tgz"
   integrity sha512-A0KgSkef7eE4Mf+nKJ83i75TMyq8HqY3qmFIJSWy8bNt0v1lG7jUcpGpoTFxAwYcWOphcTBLPPJg+bDfhDf52w==

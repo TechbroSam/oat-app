@@ -2,6 +2,7 @@ import React from "react";
 import Head from "next/head";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Swapbar";
+import WalletButton from "@/components/ConnectWallet";
 import {
   Accordion,
   AccordionHeader,
@@ -60,7 +61,7 @@ function swap() {
             <h1 className="antialiased text-4xl md:text-7xl font-bold tracking-wide">
               O<span className="text-[#F2C572]">A</span>T SWAP
             </h1>
-            <h3 className="mt-1 text-xs md:text-sm">
+            <h3 className="mt-2 text-xs md:text-sm">
               Dear <span className="text-[#F2C572]">Anon</span>, swap away with
               confidence.
             </h3>
