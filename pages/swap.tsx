@@ -91,7 +91,7 @@ function swap() {
                 <div className="space-x-4 flex flex-row items-center justify-center">
                   <input
                     type="number"
-                    className="placeholder-[#5757577b] placeholder:text-3xl md:text-2xl font-bold text-[#0d0d0d] !outline-none bg-transparent [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                    className="placeholder-[#5757577b] placeholder:text-3xl md:text-3xl font-bold text-[#0d0d0d] !outline-none bg-transparent [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                     placeholder="0"
                     required
                   />
@@ -142,7 +142,7 @@ function swap() {
                 <div className="space-x-4 flex flex-row items-center justify-center">
                   <input
                     type="number"
-                    className="placeholder-[#5757577b] placeholder:text-3xl md:text-2xl font-bold text-[#0d0d0d] !outline-none bg-transparent [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                    className="placeholder-[#5757577b] placeholder:text-3xl md:text-3xl font-bold text-[#0d0d0d] !outline-none bg-transparent [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                     placeholder="0"
                     required
                   />

@@ -26,7 +26,7 @@ export default function Home() {
         </div>
 
         {/* Card Section */}
-        <div className="relative mb-20 md:mb-80">
+        <div className="relative mb-20 md:mb-60">
           <div
             className="absolute blur-sm md:blur-md -inset-0.5 transition duration-200 bg-gradient-to-r
     from-[#C6FFDD]

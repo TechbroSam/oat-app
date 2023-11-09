@@ -22,18 +22,6 @@ const MobileNav: React.FC<NavbarProps> = ({ open, setOpen }) => {
       </div>
       <div className="flex flex-col ml-4">
         <a
-          className="text-xl font-medium my-4 ulnav"
-          href="https://www.facebook.com/profile.php?id=100089909078977"
-          target="_blank"
-          onClick={() =>
-            setTimeout(() => {
-              setOpen(!open);
-            }, 100)
-          }
-        >
-          LIQUIDITY
-        </a>
-        <a
           className="text-xl font-normal my-4 ulnav"
           href="/swap"
           target="_blank"
@@ -47,19 +35,8 @@ const MobileNav: React.FC<NavbarProps> = ({ open, setOpen }) => {
         </a>
         <a
           className="text-xl font-normal my-4 ulnav"
-          href="/swap"
+          href="/staking"
           target="_blank"
-          onClick={() =>
-            setTimeout(() => {
-              setOpen(!open);
-            }, 100)
-          }
-        >
-          LENDING
-        </a>
-        <a
-          className="text-xl font-normal my-4 ulnav"
-          href="/contact"
           onClick={() =>
             setTimeout(() => {
               setOpen(!open);
@@ -70,7 +47,7 @@ const MobileNav: React.FC<NavbarProps> = ({ open, setOpen }) => {
         </a>
         <a
           className="text-xl font-normal my-4 ulnav"
-          href="/staking"
+          href="/locker"
           onClick={() =>
             setTimeout(() => {
               setOpen(!open);
@@ -81,7 +58,18 @@ const MobileNav: React.FC<NavbarProps> = ({ open, setOpen }) => {
         </a>
         <a
           className="text-xl font-normal my-4 ulnav"
-          href="/contact"
+          href="/staking"
+          onClick={() =>
+            setTimeout(() => {
+              setOpen(!open);
+            }, 100)
+          }
+        >
+          OATBANK
+        </a>
+        <a
+          className="text-xl font-normal my-4 ulnav"
+          href="/whitepaper.pdf"
           onClick={() =>
             setTimeout(() => {
               setOpen(!open);
@@ -136,35 +124,29 @@ export default function Navbar() {
         </div>
 
         <div className="hidden md:flex">
-          <a
-            href="https://www.facebook.com/profile.php?id=100089909078977"
-            target="_blank"
-          >
-            <ul className="ulnav mx-4 md:text-xs lg:text-lg">LIQUIDITY</ul>
-          </a>
           <a href="/swap" target="_blank">
             <ul className="ulnav mx-4 md:text-xs lg:text-lg">SWAP</ul>
           </a>
           <a
-            href="https://www.facebook.com/profile.php?id=100089909078977"
+            href="/staking"
             target="_blank"
           >
-            <ul className="ulnav mx-4 md:text-xs lg:text-lg">LENDING</ul>
-          </a>
-          <a href="/staking" target="_blank">
             <ul className="ulnav mx-4 md:text-xs lg:text-lg">STAKING</ul>
           </a>
-          <a
-            href="https://www.facebook.com/profile.php?id=100089909078977"
-            target="_blank"
-          >
+          <a href="/locker" target="_blank">
             <ul className="ulnav mx-4 md:text-xs lg:text-lg">LOCKER</ul>
           </a>
           <a
-            href="https://www.facebook.com/profile.php?id=100089909078977"
+            href="/swap"
             target="_blank"
           >
-            <ul className="ulnav mx-4 md:text-xs lg:text-lg">OATPAPER</ul>
+            <ul className="ulnav mx-4 md:text-xs lg:text-lg">OATBANK</ul>
+          </a>
+          <a
+            href="/staking"
+            target="_blank"
+          >
+            <ul className="ulnav mx-4 md:text-xs lg:text-lg">WHITEPAPER</ul>
           </a>
         </div>
       </div>

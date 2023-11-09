@@ -20,7 +20,7 @@ function Staking() {
         </div>
         <div
           className="bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 mt-10 p-2
-        rounded-full backdrop-blur-sm mb-80 md:mx-[20%]"
+        rounded-full backdrop-blur-sm mb-60 md:mx-[20%]"
         >
           <div
             className="
@@ -54,7 +54,7 @@ function Staking() {
             </div>
             <div className="flex flex-col items-center mt-5 font-medium">
               <p>Minimum staking period to earn rewards is 7 days.</p>
-              <p className="font-semibold text-lg">APY: 50%</p>
+              <p className="font-bold text-lg">APY: 50%</p>
             </div>
 
             <div
