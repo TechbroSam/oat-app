@@ -4,6 +4,7 @@ import Head from "next/head";
 import Footer from "@/components/Footer";
 import Image from "next/image";
 
+
 function Staking() {
   return (
     <div>
@@ -128,7 +129,7 @@ function Staking() {
             </div>
           </div>
         </div>
-
+       
         <Footer />
       </main>
       <Head>

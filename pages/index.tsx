@@ -3,7 +3,11 @@ import Head from "next/head";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
+
+
+
 export default function Home() {
+
   return (
     <div className="">
       <Navbar />
@@ -26,7 +30,7 @@ export default function Home() {
         </div>
 
         {/* Card Section */}
-        <div className="relative mb-20 md:mb-60">
+        <div className="relative mb-20 md:mb-40">
           <div
             className="absolute blur-sm md:blur-md -inset-0.5 transition duration-200 bg-gradient-to-r
     from-[#C6FFDD]
@@ -123,8 +127,10 @@ export default function Home() {
             </div>
           </div>
         </div>
+
         <Footer />
       </main>
+
       <Head>
         <title>OAT | One Anon at a Time</title>
       </Head>

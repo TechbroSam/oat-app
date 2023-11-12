@@ -28,3 +28,12 @@
 .inshadow2 {
   box-shadow: inset 0 0 10px #1a1a1adc;
 }
+
+.fade {
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.fade-out {
+  opacity: 0;
+}
