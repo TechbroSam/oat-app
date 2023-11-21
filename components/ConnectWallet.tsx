@@ -14,20 +14,32 @@ function WalletButton() {
   return (
     <button
       className={`flex flex-row justify-between items-center cursor-pointer 
-        hover:bg-[#272727] hover:rounded-2xl py-2 px-4 hover:bg-opacity-30 
+        hover:bg-[#3f3f3f] hover:rounded-2xl py-2 px-4 hover:bg-opacity-30 
         hover:drop-shadow-2xl hover:shadow-2xl`}
       onClick={handleConnectWallet}
     >
-      <div className="flex flex-row justify-between space-x-2 items-center">
+      <div className="flex flex-row justify-between md:space-x-2 items-center">
         {connected ? (
           <>
-            <div>{contractAddress}</div>
+            <div className="text-xs md:text-base mr-1">{contractAddress}</div>
             <div>
-              <img src="/img/disconnect.svg" alt="Connected" />
+              <img className="w-4 md:w-6" src="/img/disconnect.svg" alt="Connected" />
             </div>
           </>
         ) : (
-          <div>Connect Wallet</div>
+          <div className="flex items-center text-center justify-center">
+            <>
+              <h4 className="hidden md:block text-xs md:text-base justify-center">
+                Connect Wallet
+              </h4>
+              <h4
+                className="block md:hidden text-xs
+          justify-center"
+              >
+                Connect
+              </h4>
+            </>
+          </div>
         )}
       </div>
     </button>

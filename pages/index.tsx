@@ -3,11 +3,7 @@ import Head from "next/head";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-
-
-
 export default function Home() {
-
   return (
     <div className="">
       <Navbar />
@@ -17,7 +13,7 @@ export default function Home() {
             className="flex text-[#F2C572] font-bold text-[16px] justify-center items-center text-center 
             leading-tight lg:leading-[4rem] md:text-4xl lg:text-6xl antialiased "
           >
-            CREATING GENERATIONAL WEALTH...
+            BUILDING GENERATIONAL WEALTH...
             <br />
             ONE ANON AT A TIME!
           </h1>
@@ -30,7 +26,7 @@ export default function Home() {
         </div>
 
         {/* Card Section */}
-        <div className="relative mb-20 md:mb-40">
+        <div className="relative mb-20 md:mb-28">
           <div
             className="absolute blur-sm md:blur-md -inset-0.5 transition duration-200 bg-gradient-to-r
     from-[#C6FFDD]
@@ -87,14 +83,14 @@ export default function Home() {
                   </h4>
                 </div>
               </div>
-              <div className="flex justify-between px-20 mt-2 md:pt-2">
-                <div className="flex items-center ml-4 md:ml-9 justify-center">
+              <div className="flex justify-between px-20 md:px-28 mt-2 md:pt-2">
+                <div className="flex items-center justify-center">
                   <h6 className="pr-1 md:pr-1 text-[8px] md:text-sm text-slate-300">
                     TAX
                   </h6>
                   <h4 className="text-[12px] md:text-xl font-medium">0/2</h4>
                 </div>
-                <div className="flex items-center mr-4 md:mr-9">
+                <div className="flex items-center">
                   <h6 className="text-[8px] md:text-sm text-slate-300">BBW</h6>
                   <h4 className="px-1 md:px-1 text-[#F2C572] text-[12px] font-extrabold md:text-2xl">
                     10
@@ -127,10 +123,35 @@ export default function Home() {
             </div>
           </div>
         </div>
-
-        <Footer />
+        <hr className="h-px w-[50%] my-2 bg-gray-200 border-0 dark:bg-gray-700"></hr>
+        <div className="grid grid-cols-4 mt-5 divide-x w-[50%] md:mb-28">
+          <div className="flex flex-col items-center">
+            <div className="opacity-70">Price</div>
+            <div className="flex items-center text-lg font-semibold">
+              <div>$0.00007</div>
+            </div>
+          </div>
+          <div className="flex flex-col items-center">
+            <div className="opacity-70">Holders</div>
+            <div className="flex items-center  text-lg font-semibold">
+              <div>10000</div>
+            </div>
+          </div>
+          <div className="flex flex-col items-center">
+            <div className="opacity-70">Market Cap</div>
+            <div className="flex items-center text-lg font-semibold">
+              <div>$10.7B</div>
+            </div>
+          </div>
+          <div className="flex flex-col items-center">
+            <div className="opacity-70">Liquidity</div>
+            <div className="flex items-center text-lg font-semibold">
+              <div>$990.75M</div>
+            </div>
+          </div>
+        </div>
       </main>
-
+      <Footer />
       <Head>
         <title>OAT | One Anon at a Time</title>
       </Head>
