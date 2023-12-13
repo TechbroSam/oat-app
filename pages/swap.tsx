@@ -204,7 +204,7 @@ function swap() {
                   handleOpen(1);
                   myFunction();
                 }}
-                className="flex flex-row justify-between items-center md:py-4 py-2 space-x-1"
+                className="flex flex-row justify-between items-center md:py-4 py-3 space-x-1"
               >
                 <div className="md:text-base text-xs">
                   1 OAT = &lt;0.00001 ETH{" "}

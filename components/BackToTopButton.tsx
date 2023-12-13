@@ -23,13 +23,13 @@ const BackToTopButton = () => {
 
   return (
     <button
-      className={`fixed bottom-8 right-8 bg-[#F2C572] p-4 rounded-full shadow-md 
+      className={`fixed bottom-8 right-8 bg-[#F2C572] p-2 md:p-4 rounded-full shadow-md 
       transition-all duration-1000 ${
         scrollY > 100 ? "opacity-100 scale-110" : "opacity-0 scale-0"
       } hover:bg-[#f2c5729a] `}
       onClick={scrollToTop}  
     >
-      <FaArrowUp className="text-white w-6 h-6" />
+      <FaArrowUp className="text-white md:w-6 md:h-6 w-3 h-3" />
     </button>
   );
 };

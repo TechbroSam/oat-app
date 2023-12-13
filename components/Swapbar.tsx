@@ -7,12 +7,12 @@ function Navbar() {
       className="flex bg-[#0D0D0D] py-2 cursor-pointer shadow-[#F2C572]/30
     px-3 md:py-4 md:px-[10%] top-0 justify-between items-center shadow-lg sticky z-50"
     >
-      <div className="flex items-center">
+      <a className="flex items-center">
         <img className="md:w-14 w-5" src="/img/oat_logo.png" alt="" />
         <div className="md:text-5xl text-lg font-bold">
           O<span className="text-[#F2C572]">A</span>T
         </div>
-      </div>
+      </a>
       <div className="p-2 flex flex-row items-center justify-between md:space-x-2 px-3">
         <div className="flex flex-row justify-between items-center space-x-1 mr-3">
           <img

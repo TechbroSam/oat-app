@@ -12,14 +12,18 @@ const MobileNav: React.FC<NavbarProps> = ({ open, setOpen }) => {
         open ? "-translate-x-0" : "-translate-x-full"
       } transition-transform duration-300 ease-in-out filter drop-shadow-md `}
     >
-      <div className="flex items-center justify-center filter drop-shadow-md h-20">
+      <a
+        className="flex items-center justify-center filter
+       drop-shadow-md h-20"
+       
+      >
         {" "}
         {/*logo container*/}
         <img className="lg:w-14 w-10" src="/img/oat_logo.png" alt="" />
         <div className="lg:text-5xl text-4xl font-bold">
           O<span className="text-[#F2C572]">A</span>T
         </div>
-      </div>
+      </a>
       <div className="flex flex-col ml-4">
         <a
           className="text-xl font-normal my-4 ulnav"
@@ -92,12 +96,13 @@ export default function Navbar() {
     px-5 md:py-11 md:px-[10%] sticky top-0 cursor-pointer"
     >
       <MobileNav open={open} setOpen={setOpen} />
-      <div className="w-3/12 flex items-center">
+      <a className="w-3/12 flex items-center"
+      href="/">
         <img className="lg:w-14 w-10" src="/img/oat_logo.png" alt="" />
         <div className="lg:text-5xl text-4xl font-bold">
           O<span className="text-[#F2C572]">A</span>T
         </div>
-      </div>
+      </a>
       <div className="w-9/12 flex justify-end items-center">
         <div
           className="z-50 flex relative w-8 h-8 flex-col justify-between items-center md:hidden"
@@ -127,25 +132,16 @@ export default function Navbar() {
           <a href="/swap" target="_blank">
             <ul className="ulnav mx-4 md:text-xs lg:text-lg">SWAP</ul>
           </a>
-          <a
-            href="/staking"
-            target="_blank"
-          >
+          <a href="/staking" target="_blank">
             <ul className="ulnav mx-4 md:text-xs lg:text-lg">STAKING</ul>
           </a>
           <a href="/locker" target="_blank">
             <ul className="ulnav mx-4 md:text-xs lg:text-lg">LOCKER</ul>
           </a>
-          <a
-            href="/swap"
-            target="_blank"
-          >
+          <a href="/swap" target="_blank">
             <ul className="ulnav mx-4 md:text-xs lg:text-lg">OATBANK</ul>
           </a>
-          <a
-            href="/staking"
-            target="_blank"
-          >
+          <a href="/staking" target="_blank">
             <ul className="ulnav mx-4 md:text-xs lg:text-lg">WHITEPAPER</ul>
           </a>
         </div>

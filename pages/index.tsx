@@ -7,8 +7,8 @@ export default function Home() {
   return (
     <div className="">
       <Navbar />
-      <main className="flex min-h-screen flex-col items-center justify-center">
-        <div className="antialiased flex items-center justify-center sm:mt-[5%] mt-[10%] md:mt-[10%] lg:mt-[8%]">
+      <main className="flex flex-col items-center justify-center">
+        <div className="antialiased flex items-center justify-center sm:mt-[5%] mt-10 md:mt-[10%] lg:mt-[8%]">
           <h1
             className="flex text-[#F2C572] font-bold text-[16px] justify-center items-center text-center 
             leading-tight lg:leading-[4rem] md:text-4xl lg:text-6xl antialiased "
@@ -123,30 +123,30 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <hr className="h-px w-[50%] my-2 bg-gray-200 border-0 dark:bg-gray-700"></hr>
-        <div className="grid grid-cols-4 mt-5 divide-x w-[50%] md:mb-28">
+        <hr className="md:h-px h-[0.05rem] w-full md:w-[50%] my-2 bg-gray-200 border-0 dark:bg-gray-700"></hr>
+        <div className="grid grid-cols-4 mt-5 w-full divide-x md:w-[50%] md:mb-28 mb-14">
           <div className="flex flex-col items-center">
-            <div className="opacity-70">Price</div>
+            <div className="opacity-70 text-xs md:text-base">Price</div>
             <div className="flex items-center text-lg font-semibold">
-              <div>$0.00007</div>
+              <div className="text-sm md:text-lg">$0.00005</div>
             </div>
           </div>
           <div className="flex flex-col items-center">
-            <div className="opacity-70">Holders</div>
+            <div className="opacity-70 text-xs md:text-base">Holders</div>
             <div className="flex items-center  text-lg font-semibold">
-              <div>10000</div>
+              <div className="text-sm md:text-lg">10000</div>
             </div>
           </div>
           <div className="flex flex-col items-center">
-            <div className="opacity-70">Market Cap</div>
+            <div className="opacity-70 text-xs md:text-base">Market Cap</div>
             <div className="flex items-center text-lg font-semibold">
-              <div>$10.7B</div>
+              <div className="text-sm md:text-lg">$10.7B</div>
             </div>
           </div>
           <div className="flex flex-col items-center">
-            <div className="opacity-70">Liquidity</div>
+            <div className="opacity-70 text-xs md:text-base">Liquidity</div>
             <div className="flex items-center text-lg font-semibold">
-              <div>$990.75M</div>
+              <div className="text-sm md:text-lg">$990.75M</div>
             </div>
           </div>
         </div>
