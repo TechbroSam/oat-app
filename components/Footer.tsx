@@ -1,4 +1,5 @@
 import React from "react";
+import {Tooltip} from "@nextui-org/react";
 
 function Footer() {
   return (
@@ -12,6 +13,7 @@ function Footer() {
           href="https://www.facebook.com/profile.php?id=100089909078977"
           target="_blank"
         >
+          <Tooltip content="Twitter">
           <img
             className="w-7 md:w-14"
             src="/img/x.svg"
@@ -19,12 +21,14 @@ function Footer() {
             width="0"
             height="0"
           />
+          </Tooltip>
         </a>
         <a
           className="flex w-7 h-7 md:w-14 md:h-14 bg-[#F2C572] rounded-full items-center justify-center"
           href="https://www.facebook.com/profile.php?id=100089909078977"
           target="_blank"
         >
+          <Tooltip content="Email">
           <img
             className="w-5 md:w-10"
             src="/img/email.svg"
@@ -32,12 +36,14 @@ function Footer() {
             width="10"
             height="0"
           />
+          </Tooltip>
         </a>
         <a
           className="flex w-7 h-7 md:w-14 md:h-14 bg-[#F2C572] rounded-full items-center justify-center"
           href="https://www.facebook.com/profile.php?id=100089909078977"
           target="_blank"
         >
+          <Tooltip content="Dextools">
           <img
             className="w-5 md:w-9"
             src="/img/dextools.svg"
@@ -45,12 +51,14 @@ function Footer() {
             width="10"
             height="0"
           />
+          </Tooltip>
         </a>
         <a
           className="flex w-7 h-7 md:w-14 md:h-14 bg-[#F2C572] rounded-full items-center justify-center"
           href="https://www.facebook.com/profile.php?id=100089909078977"
           target="_blank"
         >
+           <Tooltip content="Etherscan">
           <img
             className="w-5 md:w-10"
             src="/img/etherscan-logo.svg"
@@ -58,12 +66,14 @@ function Footer() {
             width="10"
             height="0"
           />
+          </Tooltip>
         </a>
         <a
           className="flex w-7 h-7 md:w-14 md:h-14 bg-[#F2C572] rounded-full items-center justify-center"
           href="https://www.facebook.com/profile.php?id=100089909078977"
           target="_blank"
         >
+           <Tooltip content="Telegram">
           <img
             className="w-5 md:w-10"
             src="/img/telegram.svg"
@@ -71,6 +81,7 @@ function Footer() {
             width="10"
             height="0"
           />
+          </Tooltip>
         </a>
       </div>
       <div className="rounded-md bg-[#F2C572] px-2 py-1 md:px-5 md:py-2 text-[#0d0d0d] my-5 ">

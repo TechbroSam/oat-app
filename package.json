@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@covalenthq/client-sdk": "^0.7.0",
     "@ionic/core": "^7.4.0",
     "@material-tailwind/react": "^2.1.2",
     "@nextui-org/button": "^2.0.21",

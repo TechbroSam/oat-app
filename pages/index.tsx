@@ -10,196 +10,218 @@ export default function Home() {
     null
   );
   const deadWalletAddress = "0x000000000000000000000000000000000000dEaD";
-  const contractAddress = "0x5713C26280647AdaD2f25bB54376943eCaA9d8e3";
+  const contractAddress = "0x6982508145454ce325ddbe47a25d4ec3d2311933";
+
+  
 
   const [price, setPrice] = useState<number | null>(null);
-  const coinGeckoId = "elon-xmas";
+  const coinGeckoId = "pepe";
 
   const [ethBalance, setEthBalance] = useState<number | null>(null);
 
-     const [holdersCount, setHoldersCount] = useState<number | null>(null);
+ 
 
-     const [marketCap, setMarketCap] = useState<string | null>(null);
+  const [holdersCount, setHoldersCount] = useState<number | null>(null);
+  const apiKey = 'cqt_rQmTdhFDM7HhbxXwmHYdYTHjjQwv'; // Replace with your Covalent API key
 
-     const [liquidity, setLiquidity] = useState<string | null>(null);
+  const [marketCap, setMarketCap] = useState<string | null>(null);
+
+  const [liquidity, setLiquidity] = useState<string | null>(null);
+
+  const etherscanApiKey = process.env.NEXT_PUBLIC_ETHERSCAN_API_KEY;
+
+  // Ethereum address to fetch balance for
+  const ethereumAddress = "0xD106dE5cD9A2954dAa48FCCA338DECC8A092c051";
+
+  // Fetch ETH balance from Etherscan API
+  const fetchEthBalance = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.etherscan.io/api?module=account&action=balance&address=${ethereumAddress}&tag=latest&apikey=${etherscanApiKey}`
+      );
+
+      // Convert balance from wei to ETH
+      const balanceInEth: number = Number(response.data.result) / 1e18;
+      setEthBalance(Number(balanceInEth.toFixed(2)));
+    } catch (error) {
+      console.error("Error fetching ETH balance:", error);
+    }
+  };
 
   useEffect(() => {
-    // Ethereum address to fetch balance for
-    const ethereumAddress = "0xD106dE5cD9A2954dAa48FCCA338DECC8A092c051";
+    const interval = setInterval(fetchEthBalance, 5000); // Fetch price every 5 seconds
+    return () => clearInterval(interval); // Clean up interval on component unmount
 
-    const etherscanApiKey = process.env.NEXT_PUBLIC_ETHERSCAN_API_KEY;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-    // Fetch ETH balance from Etherscan API
-    const fetchEthBalance = async () => {
-      try {
-        const response = await axios.get(
-          `https://api.etherscan.io/api?module=account&action=balance&address=${ethereumAddress}&tag=latest&apikey=${etherscanApiKey}`
+  const fetchCirculatingSupply = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.coingecko.com/api/v3/coins/ethereum/contract/${contractAddress}`
+      );
+      const data = response.data;
+
+      if (data.market_data && data.market_data.total_supply) {
+        // Fetch balance of the dead wallet
+        const deadWalletBalanceResponse = await axios.get(
+          `https://api.etherscan.io/api?module=account&action=balance&address=${deadWalletAddress}`
         );
+        const deadWalletBalance =
+          Number(deadWalletBalanceResponse.data.result) / 1e18;
 
-        // Convert balance from wei to ETH
-        const balanceInEth: number = Number(response.data.result) / 1e18;
-        setEthBalance(Number(balanceInEth.toFixed(2)));
-      } catch (error) {
-        console.error("Error fetching ETH balance:", error);
-      }
-    };
+        if (!isNaN(deadWalletBalance)) {
+          const totalSupply = parseFloat(data.market_data.total_supply);
+          const circulatingSupplyValue = totalSupply - deadWalletBalance;
 
-    fetchEthBalance();
-  }, []); // Fetch the balance once on component mount
-
-  useEffect(() => {
-    const fetchCirculatingSupply = async () => {
-      try {
-        const response = await axios.get(
-          `https://api.coingecko.com/api/v3/coins/ethereum/contract/${contractAddress}`
-        );
-        const data = response.data;
-
-        if (data.market_data && data.market_data.total_supply) {
-          // Fetch balance of the dead wallet
-          const deadWalletBalanceResponse = await axios.get(
-            `https://api.etherscan.io/api?module=account&action=balance&address=${deadWalletAddress}`
-          );
-          const deadWalletBalance =
-            Number(deadWalletBalanceResponse.data.result) / 1e18;
-
-          if (!isNaN(deadWalletBalance)) {
-            const totalSupply = parseFloat(data.market_data.total_supply);
-            const circulatingSupplyValue = totalSupply - deadWalletBalance;
-
-            if (!isNaN(circulatingSupplyValue)) {
-              const roundedCirculatingSupply = Math.floor(
-                circulatingSupplyValue
-              );
-              setCirculatingSupply(roundedCirculatingSupply);
-            } else {
-              console.error(
-                "Invalid circulating supply value:",
-                circulatingSupplyValue
-              );
-            }
+          if (!isNaN(circulatingSupplyValue)) {
+            const roundedCirculatingSupply = Math.floor(circulatingSupplyValue);
+            setCirculatingSupply(roundedCirculatingSupply);
           } else {
-            console.error("Invalid dead wallet balance");
+            console.error(
+              "Invalid circulating supply value:",
+              circulatingSupplyValue
+            );
           }
         } else {
-          console.error("Total supply data not available");
+          console.error("Invalid dead wallet balance");
         }
-      } catch (error) {
-        console.error("Error fetching circulating supply:", error);
+      } else {
+        console.error("Total supply data not available");
       }
-    };
+    } catch (error) {
+      console.error("Error fetching circulating supply:", error);
+    }
+  };
 
-    fetchCirculatingSupply();
-  }, [contractAddress, deadWalletAddress]);
+  useEffect(() => {
+    const interval = setInterval(fetchCirculatingSupply, 5000); // Fetch price every 5 seconds
+    return () => clearInterval(interval); // Clean up interval on component unmount
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-    const fetchPrice = async () => {
-      try {
-        const response = await axios.get(
-          `https://api.coingecko.com/api/v3/simple/price?ids=${coinGeckoId}&vs_currencies=usd`
-        );
-        const data = response.data;
+  const fetchPrice = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.coingecko.com/api/v3/simple/price?ids=${coinGeckoId}&vs_currencies=usd`
+      );
+      const data = response.data;
 
-        if (data[coinGeckoId] && data[coinGeckoId].usd) {
-          setPrice(data[coinGeckoId].usd);
-        } else {
-          console.error("Price data not available");
-        }
-      } catch (error) {
-        console.error("Error fetching price:", error);
+      if (data[coinGeckoId] && data[coinGeckoId].usd) {
+        setPrice(data[coinGeckoId].usd);
+      } else {
+        console.error("Price data not available");
       }
-    };
+    } catch (error) {
+      console.error("Error fetching price:", error);
+    }
+  };
 
-    useEffect(() => {
+  useEffect(() => {
     const interval = setInterval(fetchPrice, 5000); // Fetch price every 5 seconds
     return () => clearInterval(interval); // Clean up interval on component unmount
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); 
+  }, []);
 
-
-    useEffect(() => {
     const fetchHoldersCount = async () => {
-      try {
-        const response = await axios.get(`https://api.etherscan.io/api?module=stats&action=tokensupply&contractaddress=${contractAddress}`);
-        const totalSupply = Number(response.data.result);
+    // Define the endpoint URL and parameters
+    const url = 'https://api.covalenthq.com/v1/eth-mainnet/tokens/0xb9b450421ce2821252186e0a9f08937aa98bab3a/token_holders_v2/';
+    const params: {
+      key: string;
+      'page-number': string; // Convert the page number to string
+    } = { 'key': apiKey, 'page-number': '0' };
 
-        // Divide total supply by token balance of the contract to estimate holders count
-        if (totalSupply !== 0) {
-          const responseBalance = await axios.get(`https://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress=${contractAddress}&address=${contractAddress}`);
-          const contractBalance = Number(responseBalance.data.result);
+    try {
+      // Make an initial request to get the first page of results
+      const response = await fetch(`${url}?${new URLSearchParams(params)}`);
+      const result = await response.json();
 
-          if (contractBalance !== 0) {
-            setHoldersCount(totalSupply / contractBalance);
-          } else {
-            console.error('Invalid contract balance');
-          }
-        } else {
-          console.error('Invalid total supply');
+      // Extract the total number of pages from the response
+      const numPages = Math.floor(result.data.pagination.total_count / result.data.pagination.page_size);
+
+      // Create an empty array to store the token holders
+      let tokenHolders: any[] = [];
+
+      // Iterate through all the pages of results and append the token holders to the array
+      for (let page = 0; page < numPages; page++) {
+        params['page-number'] = String(page); // Convert page number to string
+        const pageResponse = await fetch(`${url}?${new URLSearchParams(params)}`);
+        const pageResult = await pageResponse.json();
+        tokenHolders = tokenHolders.concat(pageResult.data.items);
+
+        // Set the holders count on the last page
+        if (page === numPages - 1) {
+          setHoldersCount(tokenHolders.length);
         }
-      } catch (error) {
-        console.error('Error fetching holders count:', error);
       }
-    };
+    } catch (error) {
+      console.error("Error fetching holders count:", error);
+    }
+  };
 
-    fetchHoldersCount();
-  }, [contractAddress]);
+
+useEffect(() => {
+  const interval = setInterval(fetchHoldersCount, 5000);
+  return () => clearInterval(interval);
+}, []);
 
 
-  
-    const fetchMarketCap = async () => {
-      try {
-        const response = await axios.get(`https://api.coingecko.com/api/v3/coins/${coinGeckoId}`);
-        const data = response.data;
+  const fetchMarketCap = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.coingecko.com/api/v3/coins/${coinGeckoId}`
+      );
+      const data = response.data;
 
-        if (data.market_data && data.market_data.market_cap) {
-          const marketCapValue = data.market_data.market_cap.usd;
-          setMarketCap(marketCapValue.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
-        } else {
-          console.error('Market cap data not available');
-        }
-      } catch (error) {
-        console.error('Error fetching market cap:', error);
+      if (data.market_data && data.market_data.market_cap) {
+        const marketCapValue = Math.floor(data.market_data.market_cap.usd); // Apply Math.floor here
+        setMarketCap(
+          marketCapValue.toLocaleString("en-US", {
+            style: "currency",
+            currency: "USD",
+            minimumFractionDigits: 0, // Force minimum fraction digits to 0
+            maximumFractionDigits: 0, // Force maximum fraction digits to 0
+          })
+        );
+      } else {
+        console.error("Market cap data not available");
       }
-    };
+    } catch (error) {
+      console.error("Error fetching market cap:", error);
+    }
+  };
 
-     useEffect(() => {
+  useEffect(() => {
     const interval = setInterval(fetchMarketCap, 5000); // Fetch price every 5 seconds
     return () => clearInterval(interval); // Clean up interval on component unmount
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); 
+  }, []);
 
+  useEffect(() => {
+  const fetchLiquidity = async () => {
+    try {
+      const tokenAddress = '0xb9b450421ce2821252186e0a9f08937aa98bab3a'; // Replace with the actual token address
 
- useEffect(() => {
-    const fetchLiquidity = async () => {
-      try {
-        const response = await axios.post('https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v2', {
-          query: `
-            {
-              pairs(where: { token0: "${contractAddress}" }) {
-                reserveUSD
-              }
-            }
-          `
-        });
+      const response = await axios.get(`https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v2?query={pairs(where:{token0:"${tokenAddress}"}){id,liquidityUSD}}`);
 
-        const data = response.data;
+      const data = response.data;
 
-        if (data && data.data && data.data.pairs && data.data.pairs.length > 0) {
-          const liquidityValue = data.data.pairs[0].reserveUSD;
-          setLiquidity(parseFloat(liquidityValue).toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
-        } else {
-          console.error('Liquidity data not available');
-        }
-      } catch (error) {
-        console.error('Error fetching liquidity:', error);
+      if (data && data.data && data.data.pairs && data.data.pairs.length > 0) {
+        const liquidityValue = data.data.pairs[0].liquidityUSD;
+        setLiquidity(parseFloat(liquidityValue).toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
+      } else {
+        console.error('Liquidity data not available');
       }
-    };
+    } catch (error) {
+      console.error('Error fetching liquidity:', error);
+    }
+  };
 
-    fetchLiquidity();
-  }, [contractAddress]);
-
+  fetchLiquidity();
+}, []);
 
   return (
     <div className="">
@@ -270,7 +292,7 @@ export default function Home() {
                 <div>
                   <h6 className="text-[8px] md:text-xs text-[#F2C572]">TS</h6>
                   <h4 className="text-[10px] md:text-[18px] font-medium">
-                    1,000,000,000
+                    420,690,000,000,000
                   </h4>
                 </div>
                 <div>
@@ -333,49 +355,54 @@ export default function Home() {
               <div className="flex flex-col items-center">
                 <div className="opacity-70 text-xs md:text-base">Price</div>
                 <div className="flex items-center text-lg font-semibold">
-                  <div className="text-sm md:text-lg">${price.toFixed(7)}</div>
+                  <div className="text-sm md:text-lg">${price.toFixed(9)}</div>
                 </div>
               </div>
             ) : (
               <p>Loading...</p>
             )}
           </div>
-    <div className="flex flex-col items-center">
-      {holdersCount !== null ? (
-        <div className="flex flex-col items-center">
-          <div className="opacity-70 text-xs md:text-base">Holders</div>
-          <div className="flex items-center text-lg font-semibold">
-            <div className="text-sm md:text-lg">{Math.floor(holdersCount)}</div>
+          <div className="flex flex-col items-center">
+            {holdersCount !== null ? (
+              <div className="flex flex-col items-center">
+                <div className="opacity-70 text-xs md:text-base">Holders</div>
+                <div className="flex items-center text-lg font-semibold">
+                  <div className="text-sm md:text-lg">
+                    {(Number(holdersCount)).toLocaleString()}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <p>Loading holders count...</p>
+            )}
           </div>
-        </div>
-      ) : (
-        <p>Loading holders count...</p>
-      )}
-    </div>
-  <div className="flex flex-col items-center">
-      {marketCap !== null ? (
-        <div className="flex flex-col items-center">
-          <div className="opacity-70 text-xs md:text-base">Market Cap</div>
-          <div className="flex items-center text-lg font-semibold">
-            <div className="text-sm md:text-lg">{marketCap}</div>
+
+          <div className="flex flex-col items-center">
+            {marketCap !== null ? (
+              <div className="flex flex-col items-center">
+                <div className="opacity-70 text-xs md:text-base">
+                  Market Cap
+                </div>
+                <div className="flex items-center text-lg font-semibold">
+                  <div className="text-sm md:text-lg">{marketCap}</div>
+                </div>
+              </div>
+            ) : (
+              <p>Loading market cap...</p>
+            )}
           </div>
-        </div>
-      ) : (
-        <p>Loading market cap...</p>
-      )}
-    </div>
-    <div className="flex flex-col items-center" >
-      {liquidity !== null ? (
-        <div className="flex flex-col items-center">
-          <div className="opacity-70 text-xs md:text-base">Liquidity</div>
-          <div className="flex items-center text-lg font-semibold">
-            <div className="text-sm md:text-lg">{liquidity}</div>
+          <div className="flex flex-col items-center">
+            {liquidity !== null ? (
+              <div className="flex flex-col items-center">
+                <div className="opacity-70 text-xs md:text-base">Liquidity</div>
+                <div className="flex items-center text-lg font-semibold">
+                  <div className="text-sm md:text-lg">{liquidity}</div>
+                </div>
+              </div>
+            ) : (
+              <p>Loading liquidity...</p>
+            )}
           </div>
-        </div>
-      ) : (
-        <p>Loading liquidity...</p>
-      )}
-    </div>
         </div>
       </main>
       <Footer />
