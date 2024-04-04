@@ -4,18 +4,19 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import HorizontalMarquee from '../components/HorizonalMarquee';
 
 export default function Home() {
   const [circulatingSupply, setCirculatingSupply] = useState<number | null>(
     null
   );
   const deadWalletAddress = "0x000000000000000000000000000000000000dEaD";
-  const contractAddress = "0x6982508145454ce325ddbe47a25d4ec3d2311933";
+  const contractAddress = "0xb9f599ce614feb2e1bbe58f180f370d05b39344e";
 
   
 
   const [price, setPrice] = useState<number | null>(null);
-  const coinGeckoId = "pepe";
+  const coinGeckoId = "pepefork";
 
   const [ethBalance, setEthBalance] = useState<number | null>(null);
 
@@ -52,7 +53,7 @@ export default function Home() {
     const interval = setInterval(fetchEthBalance, 5000); // Fetch price every 5 seconds
     return () => clearInterval(interval); // Clean up interval on component unmount
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-depsnt
   }, []);
 
   const fetchCirculatingSupply = async () => {
@@ -127,7 +128,7 @@ export default function Home() {
 
     const fetchHoldersCount = async () => {
     // Define the endpoint URL and parameters
-    const url = 'https://api.covalenthq.com/v1/eth-mainnet/tokens/0xb9b450421ce2821252186e0a9f08937aa98bab3a/token_holders_v2/';
+    const url = 'https://api.covalenthq.com/v1/eth-mainnet/tokens/0xb9f599ce614feb2e1bbe58f180f370d05b39344e/token_holders_v2/';
     const params: {
       key: string;
       'page-number': string; // Convert the page number to string
@@ -203,7 +204,7 @@ useEffect(() => {
   useEffect(() => {
   const fetchLiquidity = async () => {
     try {
-      const tokenAddress = '0xb9b450421ce2821252186e0a9f08937aa98bab3a'; // Replace with the actual token address
+      const tokenAddress = '0xb9f599ce614feb2e1bbe58f180f370d05b39344e'; // Replace with the actual token address
 
       const response = await axios.get(`https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v2?query={pairs(where:{token0:"${tokenAddress}"}){id,liquidityUSD}}`);
 
@@ -227,7 +228,8 @@ useEffect(() => {
     <div className="">
       <Navbar />
       <main className="flex flex-col items-center justify-center">
-        <div className="antialiased flex items-center justify-center sm:mt-[5%] mt-10 md:mt-[10%] lg:mt-[8%]">
+        <HorizontalMarquee />
+        <div className="antialiased flex items-center justify-center sm:mt-[5%] mt-10">
           <h1
             className="flex text-[#F2C572] font-bold text-[16px] justify-center items-center text-center 
             leading-tight lg:leading-[4rem] md:text-4xl lg:text-6xl antialiased "
