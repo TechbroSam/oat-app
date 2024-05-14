@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Head from "next/head";
+import React from 'react';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useEffect, useState } from "react";
@@ -13,9 +14,65 @@ export default function Home() {
   const deadWalletAddress = "0x000000000000000000000000000000000000dEaD";
   const contractAddress = "0xb9f599ce614feb2e1bbe58f180f370d05b39344e";
 
+  const [price, setPrice] = useState<number | null>(null);
+  const [liquidity, setLiquidity] = useState<string | null>(null);
+  const [fdv, setFdv] = useState<string | null>(null)
+
+
+  // Function to format liquidity or FDV value
+  const formatValue = (value: number) => {
+    if (value >= 1000000000) {
+      return (value / 1000000000).toFixed(1) + "B";
+    } else if (value >= 1000000) {
+      return (
+        (value / 1000000).toFixed(value % 1000000 >= 50000 ? 1 : 0) + "M"
+      );
+    } else if (value >= 1000) {
+      return (
+        (value / 1000).toFixed(value % 1000 >= 500 ? 1 : 0) + "K"
+      );
+    } else if (Number.isInteger(value)) {
+      return value.toFixed(0);
+    } else {
+      return value.toFixed(1);
+    }
+  };
+
+
+  // Fetch data from Dexscreener API and update price, liquidity, and FDV
+  const fetchTokenData = async () => {
+    try {
+      const response = await fetch(
+        "https://api.dexscreener.io/latest/dex/tokens/0xb9f599ce614feb2e1bbe58f180f370d05b39344e"
+      );
+      const data = await response.json();
+
+      // Extract priceUsd, liquidityUsd, and fdv from the fetched data
+      const pairs = data.pairs;
+      if (pairs && pairs.length > 0) {
+        const priceUsd = pairs[0].priceUsd;
+        const liquidityUsd = pairs[0].liquidity.usd;
+        const fdv = pairs[0].fdv;
+
+        // Update state with the fetched data
+        setPrice(priceUsd);
+        setLiquidity(formatValue(liquidityUsd));
+        setFdv(formatValue(fdv));
+      } else {
+        console.error("No pairs found in the response");
+      }
+    } catch (error) {
+      console.error("Error fetching token data:", error);
+    }
+  };
+
+  useEffect(() => {
+     const interval = setInterval(fetchTokenData, 5000); // Fetch price every 5 seconds
+     return () => clearInterval(interval); // Clean up interval on component unmount
+  }, []);
+
   
 
-  const [price, setPrice] = useState<number | null>(null);
   const coinGeckoId = "pepefork";
 
   const [ethBalance, setEthBalance] = useState<number | null>(null);
@@ -27,7 +84,6 @@ export default function Home() {
 
   const [marketCap, setMarketCap] = useState<string | null>(null);
 
-  const [liquidity, setLiquidity] = useState<string | null>(null);
 
   const etherscanApiKey = process.env.NEXT_PUBLIC_ETHERSCAN_API_KEY;
 
@@ -102,29 +158,6 @@ export default function Home() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const fetchPrice = async () => {
-    try {
-      const response = await axios.get(
-        `https://api.coingecko.com/api/v3/simple/price?ids=${coinGeckoId}&vs_currencies=usd`
-      );
-      const data = response.data;
-
-      if (data[coinGeckoId] && data[coinGeckoId].usd) {
-        setPrice(data[coinGeckoId].usd);
-      } else {
-        console.error("Price data not available");
-      }
-    } catch (error) {
-      console.error("Error fetching price:", error);
-    }
-  };
-
-  useEffect(() => {
-    const interval = setInterval(fetchPrice, 5000); // Fetch price every 5 seconds
-    return () => clearInterval(interval); // Clean up interval on component unmount
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
     const fetchHoldersCount = async () => {
     // Define the endpoint URL and parameters
@@ -201,28 +234,6 @@ useEffect(() => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-  const fetchLiquidity = async () => {
-    try {
-      const tokenAddress = '0xb9f599ce614feb2e1bbe58f180f370d05b39344e'; // Replace with the actual token address
-
-      const response = await axios.get(`https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v2?query={pairs(where:{token0:"${tokenAddress}"}){id,liquidityUSD}}`);
-
-      const data = response.data;
-
-      if (data && data.data && data.data.pairs && data.data.pairs.length > 0) {
-        const liquidityValue = data.data.pairs[0].liquidityUSD;
-        setLiquidity(parseFloat(liquidityValue).toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
-      } else {
-        console.error('Liquidity data not available');
-      }
-    } catch (error) {
-      console.error('Error fetching liquidity:', error);
-    }
-  };
-
-  fetchLiquidity();
-}, []);
 
   return (
     <div className="">
@@ -351,18 +362,14 @@ useEffect(() => {
           </div>
         </div>
         <hr className="md:h-px h-[0.05rem] w-full md:w-[50%] my-2 bg-gray-200 border-0 dark:bg-gray-700"></hr>
-        <div className="grid grid-cols-4 mt-5 w-full divide-x md:w-[50%] md:mb-28 mb-14">
+        <div className="grid grid-cols-5 mt-5 w-full divide-x md:w-[50%] md:mb-28 mb-14">
           <div className="flex flex-col items-center">
-            {price !== null ? (
               <div className="flex flex-col items-center">
                 <div className="opacity-70 text-xs md:text-base">Price</div>
                 <div className="flex items-center text-lg font-semibold">
-                  <div className="text-sm md:text-lg">${price.toFixed(9)}</div>
+                <div className="text-sm md:text-lg">${price ?? "Loading..."}</div>
                 </div>
               </div>
-            ) : (
-              <p>Loading...</p>
-            )}
           </div>
           <div className="flex flex-col items-center">
             {holdersCount !== null ? (
@@ -394,16 +401,20 @@ useEffect(() => {
             )}
           </div>
           <div className="flex flex-col items-center">
-            {liquidity !== null ? (
               <div className="flex flex-col items-center">
                 <div className="opacity-70 text-xs md:text-base">Liquidity</div>
                 <div className="flex items-center text-lg font-semibold">
-                  <div className="text-sm md:text-lg">{liquidity}</div>
+                  <div className="text-sm md:text-lg">${liquidity ?? "Loading..."}</div>
                 </div>
               </div>
-            ) : (
-              <p>Loading liquidity...</p>
-            )}
+          </div>
+          <div className="flex flex-col items-center">      
+              <div className="flex flex-col items-center">
+                <div className="opacity-70 text-xs md:text-base">Fdv</div>
+                <div className="flex items-center text-lg font-semibold">
+                  <div className="text-sm md:text-lg">${fdv ?? "Loading..."}</div>
+                </div>
+              </div>
           </div>
         </div>
       </main>
