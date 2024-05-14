@@ -1,36 +1,32 @@
 import Image from "next/image";
 import Head from "next/head";
-import React from 'react';
+import React from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import HorizontalMarquee from '../components/HorizonalMarquee';
+import HorizontalMarquee from "../components/HorizonalMarquee";
+import { space } from "postcss/lib/list";
 
 export default function Home() {
   const [circulatingSupply, setCirculatingSupply] = useState<number | null>(
     null
   );
   const deadWalletAddress = "0x000000000000000000000000000000000000dEaD";
-  const contractAddress = "0xb9f599ce614feb2e1bbe58f180f370d05b39344e";
+  const contractAddress = "0x576e2bed8f7b46d34016198911cdf9886f78bea7";
 
   const [price, setPrice] = useState<number | null>(null);
   const [liquidity, setLiquidity] = useState<string | null>(null);
-  const [fdv, setFdv] = useState<string | null>(null)
-
+  const [fdv, setFdv] = useState<string | null>(null);
 
   // Function to format liquidity or FDV value
   const formatValue = (value: number) => {
     if (value >= 1000000000) {
       return (value / 1000000000).toFixed(1) + "B";
     } else if (value >= 1000000) {
-      return (
-        (value / 1000000).toFixed(value % 1000000 >= 50000 ? 1 : 0) + "M"
-      );
+      return (value / 1000000).toFixed(value % 1000000 >= 50000 ? 1 : 0) + "M";
     } else if (value >= 1000) {
-      return (
-        (value / 1000).toFixed(value % 1000 >= 500 ? 1 : 0) + "K"
-      );
+      return (value / 1000).toFixed(value % 1000 >= 500 ? 1 : 0) + "K";
     } else if (Number.isInteger(value)) {
       return value.toFixed(0);
     } else {
@@ -38,52 +34,53 @@ export default function Home() {
     }
   };
 
-
   // Fetch data from Dexscreener API and update price, liquidity, and FDV
   const fetchTokenData = async () => {
-    try {
-      const response = await fetch(
-        "https://api.dexscreener.io/latest/dex/tokens/0xb9f599ce614feb2e1bbe58f180f370d05b39344e"
-      );
-      const data = await response.json();
+  try {
+    const response = await fetch(
+      "https://api.dexscreener.io/latest/dex/tokens/0x576e2bed8f7b46d34016198911cdf9886f78bea7"
+    );
+    const data = await response.json();
 
-      // Extract priceUsd, liquidityUsd, and fdv from the fetched data
-      const pairs = data.pairs;
-      if (pairs && pairs.length > 0) {
-        const priceUsd = pairs[0].priceUsd;
-        const liquidityUsd = pairs[0].liquidity.usd;
-        const fdv = pairs[0].fdv;
+    // Extract priceUsd, liquidityUsd, and fdv from the fetched data
+    const pairs = data.pairs;
+    if (pairs && pairs.length > 0) {
+      const priceUsd = pairs[0].priceUsd;
+      const liquidityUsd = pairs[0].liquidity.usd;
+      const fdv = pairs[0].fdv;
 
-        // Update state with the fetched data
-        setPrice(priceUsd);
-        setLiquidity(formatValue(liquidityUsd));
-        setFdv(formatValue(fdv));
+      // Update state with the fetched data
+      setPrice(priceUsd);
+      setLiquidity(formatValue(liquidityUsd));
+      setFdv(formatValue(fdv));
+
+      if (!isNaN(fdv) && circulatingSupply !== null) {
+        const calculatedMarketCap = circulatingSupply * priceUsd;
+        setMarketCap(formatValue(calculatedMarketCap));
       } else {
-        console.error("No pairs found in the response");
+        console.error("Invalid FDV or circulating supply value");
       }
-    } catch (error) {
-      console.error("Error fetching token data:", error);
+    } else {
+      console.error("No pairs found in the response");
     }
-  };
+  } catch (error) {
+    console.error("Error fetching token data:", error);
+  }
+};
 
   useEffect(() => {
-     const interval = setInterval(fetchTokenData, 5000); // Fetch price every 5 seconds
-     return () => clearInterval(interval); // Clean up interval on component unmount
+    const interval = setInterval(fetchTokenData, 5000); // Fetch price every 5 seconds
+    return () => clearInterval(interval); // Clean up interval on component unmount
   }, []);
-
-  
 
   const coinGeckoId = "pepefork";
 
   const [ethBalance, setEthBalance] = useState<number | null>(null);
 
- 
-
   const [holdersCount, setHoldersCount] = useState<number | null>(null);
-  const apiKey = 'cqt_rQmTdhFDM7HhbxXwmHYdYTHjjQwv'; // Replace with your Covalent API key
+  const apiKey = "cqt_rQmTdhFDM7HhbxXwmHYdYTHjjQwv"; // Replace with your Covalent API key
 
   const [marketCap, setMarketCap] = useState<string | null>(null);
-
 
   const etherscanApiKey = process.env.NEXT_PUBLIC_ETHERSCAN_API_KEY;
 
@@ -158,14 +155,14 @@ export default function Home() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-
-    const fetchHoldersCount = async () => {
+  const fetchHoldersCount = async () => {
     // Define the endpoint URL and parameters
-    const url = 'https://api.covalenthq.com/v1/eth-mainnet/tokens/0xb9f599ce614feb2e1bbe58f180f370d05b39344e/token_holders_v2/';
+    const url =
+      "https://api.covalenthq.com/v1/eth-mainnet/tokens/0x576e2bed8f7b46d34016198911cdf9886f78bea7/token_holders_v2/";
     const params: {
       key: string;
-      'page-number': string; // Convert the page number to string
-    } = { 'key': apiKey, 'page-number': '0' };
+      "page-number": string; // Convert the page number to string
+    } = { key: apiKey, "page-number": "0" };
 
     try {
       // Make an initial request to get the first page of results
@@ -173,15 +170,19 @@ export default function Home() {
       const result = await response.json();
 
       // Extract the total number of pages from the response
-      const numPages = Math.floor(result.data.pagination.total_count / result.data.pagination.page_size);
+      const numPages = Math.floor(
+        result.data.pagination.total_count / result.data.pagination.page_size
+      );
 
       // Create an empty array to store the token holders
       let tokenHolders: any[] = [];
 
       // Iterate through all the pages of results and append the token holders to the array
       for (let page = 0; page < numPages; page++) {
-        params['page-number'] = String(page); // Convert page number to string
-        const pageResponse = await fetch(`${url}?${new URLSearchParams(params)}`);
+        params["page-number"] = String(page); // Convert page number to string
+        const pageResponse = await fetch(
+          `${url}?${new URLSearchParams(params)}`
+        );
         const pageResult = await pageResponse.json();
         tokenHolders = tokenHolders.concat(pageResult.data.items);
 
@@ -195,45 +196,10 @@ export default function Home() {
     }
   };
 
-
-useEffect(() => {
-  const interval = setInterval(fetchHoldersCount, 5000);
-  return () => clearInterval(interval);
-}, []);
-
-
-  const fetchMarketCap = async () => {
-    try {
-      const response = await axios.get(
-        `https://api.coingecko.com/api/v3/coins/${coinGeckoId}`
-      );
-      const data = response.data;
-
-      if (data.market_data && data.market_data.market_cap) {
-        const marketCapValue = Math.floor(data.market_data.market_cap.usd); // Apply Math.floor here
-        setMarketCap(
-          marketCapValue.toLocaleString("en-US", {
-            style: "currency",
-            currency: "USD",
-            minimumFractionDigits: 0, // Force minimum fraction digits to 0
-            maximumFractionDigits: 0, // Force maximum fraction digits to 0
-          })
-        );
-      } else {
-        console.error("Market cap data not available");
-      }
-    } catch (error) {
-      console.error("Error fetching market cap:", error);
-    }
-  };
-
   useEffect(() => {
-    const interval = setInterval(fetchMarketCap, 5000); // Fetch price every 5 seconds
-    return () => clearInterval(interval); // Clean up interval on component unmount
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const interval = setInterval(fetchHoldersCount, 5000);
+    return () => clearInterval(interval);
   }, []);
-
 
   return (
     <div className="">
@@ -305,17 +271,15 @@ useEffect(() => {
                 <div>
                   <h6 className="text-[8px] md:text-xs text-[#F2C572]">TS</h6>
                   <h4 className="text-[10px] md:text-[18px] font-medium">
-                    420,690,000,000,000
+                    420,690,000
                   </h4>
                 </div>
                 <div>
                   <h6 className="text-[8px] md:text-xs text-[#F2C572]">CS</h6>
                   <h4 className="text-[10px] md:text-[18px] font-medium">
-                    {circulatingSupply !== null ? (
-                      <p>{circulatingSupply.toLocaleString()}</p>
-                    ) : (
-                      <p>Loading...</p>
-                    )}
+                      <p>{circulatingSupply
+                    ? Number(circulatingSupply).toLocaleString()
+                    : <span className="text-sm">Loading...</span>}</p>
                   </h4>
                 </div>
               </div>
@@ -331,7 +295,7 @@ useEffect(() => {
                 <div className="flex items-center">
                   <h6 className="text-[8px] md:text-sm text-slate-300">BBW</h6>
                   <h4 className="px-1 md:px-1 text-[#F2C572] text-[12px] font-bold md:text-2xl">
-                    {ethBalance !== null ? ethBalance : "Loading..."}
+                    {ethBalance !== null ? ethBalance : <span className="text-sm">Loading...</span>}
                   </h4>
                   <h6 className="text-[10px] md:text-base font-medium">ETH</h6>
                 </div>
@@ -362,59 +326,59 @@ useEffect(() => {
           </div>
         </div>
         <hr className="md:h-px h-[0.05rem] w-full md:w-[50%] my-2 bg-gray-200 border-0 dark:bg-gray-700"></hr>
-        <div className="grid grid-cols-5 mt-5 w-full divide-x md:w-[50%] md:mb-28 mb-14">
+
+        <div className="grid grid-cols-5 mt-5 w-full divide-x md:w-[50%] md:mb-28 mb-14 gap-x-4">
           <div className="flex flex-col items-center">
-              <div className="flex flex-col items-center">
-                <div className="opacity-70 text-xs md:text-base">Price</div>
-                <div className="flex items-center text-lg font-semibold">
-                <div className="text-sm md:text-lg">${price ?? "Loading..."}</div>
+            <div className="flex flex-col items-center">
+              <div className="opacity-70 text-xs md:text-base">Price</div>
+              <div className="flex items-center text-lg font-semibold">
+                <div className="text-sm md:text-lg">
+                  {price != null ? `$${price}` : <span className="text-sm">Loading...</span>}
                 </div>
               </div>
-          </div>
-          <div className="flex flex-col items-center">
-            {holdersCount !== null ? (
-              <div className="flex flex-col items-center">
-                <div className="opacity-70 text-xs md:text-base">Holders</div>
-                <div className="flex items-center text-lg font-semibold">
-                  <div className="text-sm md:text-lg">
-                    {(Number(holdersCount)).toLocaleString()}
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <p>Loading holders count...</p>
-            )}
+            </div>
           </div>
 
           <div className="flex flex-col items-center">
-            {marketCap !== null ? (
-              <div className="flex flex-col items-center">
-                <div className="opacity-70 text-xs md:text-base">
-                  Market Cap
-                </div>
-                <div className="flex items-center text-lg font-semibold">
-                  <div className="text-sm md:text-lg">{marketCap}</div>
+            <div className="flex flex-col items-center">
+              <div className="opacity-70 text-xs md:text-base">Holders</div>
+              <div className="flex items-center text-lg font-semibold">
+                <div className="text-sm md:text-lg">
+                  {holdersCount
+                    ? Number(holdersCount).toLocaleString()
+                    : <span className="text-sm">Loading...</span>}
                 </div>
               </div>
-            ) : (
-              <p>Loading market cap...</p>
-            )}
+            </div>
+          </div>
+
+          <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center">
+              <div className="opacity-70 text-xs md:text-base">Market Cap</div>
+              <div className="flex items-center text-lg font-semibold">
+                <div className="text-sm md:text-lg">
+                  {marketCap != null ? `$${marketCap}` : <span className="text-sm">Loading...</span>}
+                </div>
+              </div>
+            </div>
           </div>
           <div className="flex flex-col items-center">
-              <div className="flex flex-col items-center">
-                <div className="opacity-70 text-xs md:text-base">Liquidity</div>
-                <div className="flex items-center text-lg font-semibold">
-                  <div className="text-sm md:text-lg">${liquidity ?? "Loading..."}</div>
+            <div className="flex flex-col items-center">
+              <div className="opacity-70 text-xs md:text-base">Liquidity</div>
+              <div className="flex items-center text-lg font-semibold">
+                <div className="text-sm md:text-lg">
+                  {liquidity != null ? `$${liquidity}` : <span className="text-sm">Loading...</span>}
                 </div>
               </div>
+            </div>
           </div>
-          <div className="flex flex-col items-center">      
-              <div className="flex flex-col items-center">
-                <div className="opacity-70 text-xs md:text-base">Fdv</div>
-                <div className="flex items-center text-lg font-semibold">
-                  <div className="text-sm md:text-lg">${fdv ?? "Loading..."}</div>
-                </div>
+          <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center">
+              <div className="opacity-70 text-xs md:text-base">Fdv</div>
+              <div className="flex items-center text-lg font-semibold">
+                <div className="text-sm md:text-lg">{fdv != null ? `$${fdv}` : <span className="text-sm">Loading...</span>}</div>
               </div>
+            </div>
           </div>
         </div>
       </main>
