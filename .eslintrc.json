@@ -1,5 +1,6 @@
 {
   "extends": [
+    "next",
     "next/core-web-vitals",
     "plugin:react-hooks/recommended"
   ],
@@ -10,6 +11,9 @@
   ],
   "rules": {
     // ...
-    "react-hooks/exhaustive-deps": "warn"
+    "react-hooks/exhaustive-deps": "warn",
+    "react/no-unescaped-entities": "off",
+    "@next/next/no-page-custom-font": "off"
+  
   }
 }
