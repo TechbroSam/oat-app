@@ -71,6 +71,7 @@ export default function Home() {
   useEffect(() => {
     const interval = setInterval(fetchTokenData, 5000); // Fetch price every 5 seconds
     return () => clearInterval(interval); // Clean up interval on component unmount
+    // eslint-disable-next-line
   }, []);
 
   const coinGeckoId = "pepefork";
@@ -105,7 +106,7 @@ export default function Home() {
   useEffect(() => {
     const interval = setInterval(fetchEthBalance, 5000); // Fetch price every 5 seconds
     return () => clearInterval(interval); // Clean up interval on component unmount
-    // eslint-disable-next-line react-hooks/exhaustive-depsnt
+   // eslint-disable-next-line
   }, []);
 
   const fetchCirculatingSupply = async () => {
@@ -151,7 +152,7 @@ export default function Home() {
     const interval = setInterval(fetchCirculatingSupply, 5000); // Fetch price every 5 seconds
     return () => clearInterval(interval); // Clean up interval on component unmount
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, []);
 
   const fetchHoldersCount = async () => {
