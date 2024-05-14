@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Link from "next/link";
 
 interface NavbarProps {
   open: boolean;
@@ -25,7 +26,7 @@ const MobileNav: React.FC<NavbarProps> = ({ open, setOpen }) => {
         </div>
       </a>
       <div className="flex flex-col ml-4">
-        <a
+        <Link
           className="text-xl font-normal my-4 ulnav"
           href="/swap"
           target="_blank"
@@ -36,8 +37,8 @@ const MobileNav: React.FC<NavbarProps> = ({ open, setOpen }) => {
           }
         >
           SWAP
-        </a>
-        <a
+        </Link>
+        <Link
           className="text-xl font-normal my-4 ulnav"
           href="/staking"
           target="_blank"
@@ -48,8 +49,8 @@ const MobileNav: React.FC<NavbarProps> = ({ open, setOpen }) => {
           }
         >
           STAKING
-        </a>
-        <a
+        </Link>
+        <Link
           className="text-xl font-normal my-4 ulnav"
           href="/locker"
           onClick={() =>
@@ -59,8 +60,8 @@ const MobileNav: React.FC<NavbarProps> = ({ open, setOpen }) => {
           }
         >
           LOCKER
-        </a>
-        <a
+        </Link>
+        <Link
           className="text-xl font-normal my-4 ulnav"
           href="/staking"
           onClick={() =>
@@ -70,8 +71,8 @@ const MobileNav: React.FC<NavbarProps> = ({ open, setOpen }) => {
           }
         >
           OATBANK
-        </a>
-        <a
+        </Link>
+        <Link
           className="text-xl font-normal my-4 ulnav"
           href="/whitepaper.pdf"
           onClick={() =>
@@ -81,7 +82,7 @@ const MobileNav: React.FC<NavbarProps> = ({ open, setOpen }) => {
           }
         >
           OATPAPER
-        </a>
+        </Link>
       </div>
     </div>
   );
