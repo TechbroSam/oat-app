@@ -48,7 +48,7 @@ function myFunction() {
   }
 }
 
-function swap() {
+function Swap() {
   const [open, setOpen] = React.useState(0);
 
   const handleOpen = (value: React.SetStateAction<number>) =>
@@ -271,11 +271,11 @@ function swap() {
           </Head>
         </div>
 
-        <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
+        <script src="../path/to/flowbite/dist/flowbite.min.js" async></script>
       </main>
       <Footer />
     </div>
   );
 }
 
-export default swap;
+export default Swap;

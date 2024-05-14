@@ -105,7 +105,6 @@ export default function Home() {
   useEffect(() => {
     const interval = setInterval(fetchEthBalance, 5000); // Fetch price every 5 seconds
     return () => clearInterval(interval); // Clean up interval on component unmount
-
     // eslint-disable-next-line react-hooks/exhaustive-depsnt
   }, []);
 
@@ -218,8 +217,8 @@ export default function Home() {
         </div>
         <div>
           <h3 className="text-slate-300 justify-center text-center px-5 text-[10px] mt-3 mb-12 md:mt-6 md:text-xl">
-            "DEAR <span className="text-[#F2C572]">ANON</span>, BE THE CHANGE
-            YOU WANT TO SEE IN <span className="text-[#F2C572]">CRYPTO</span>."
+            &quot;DEAR <span className="text-[#F2C572]">ANON</span>, BE THE CHANGE
+            YOU WANT TO SEE IN <span className="text-[#F2C572]">CRYPTO</span>.&quot;
           </h3>
         </div>
 
