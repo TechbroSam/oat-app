@@ -155,11 +155,11 @@ const fetchEthBalance = async () => {
       setLiquidity(formatValue(liquidityUsd));
       setFdv(formatValue(fdv));
 
-      if (circulatingSupply !== null && !isNaN(circulatingSupply)){
+      if (!isNaN(priceUsd) && circulatingSupply !== null){
         const calculatedMarketCap = circulatingSupply * priceUsd;
         setMarketCap(formatValue(calculatedMarketCap));
       } else {
-        console.error("Invalid FDV or circulating supply value");
+        console.error("Invalid price or circulating supply value");
       }
     } else {
       console.error("No pairs found in the response");
