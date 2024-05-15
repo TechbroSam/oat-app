@@ -103,6 +103,12 @@ export default function Home() {
     }
   };
 
+  useEffect(() => {
+    const interval = setInterval(fetchEthBalance, 5000); // Fetch price every 5 seconds
+    return () => clearInterval(interval); // Clean up interval on component unmount
+   // eslint-disable-next-line
+  }, []);
+
   const fetchCirculatingSupply = async () => {
     try {
       const response = await axios.get(
