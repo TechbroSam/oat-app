@@ -34,46 +34,6 @@ export default function Home() {
     }
   };
 
-  // Fetch data from Dexscreener API and update price, liquidity, and FDV
-  const fetchTokenData = async () => {
-  try {
-    const response = await fetch(
-      "https://api.dexscreener.io/latest/dex/tokens/0x6A7eFF1e2c355AD6eb91BEbB5ded49257F3FED98"
-    );
-    const data = await response.json();
-
-    // Extract priceUsd, liquidityUsd, and fdv from the fetched data
-    const pairs = data.pairs;
-    if (pairs && pairs.length > 0) {
-      const priceUsd = pairs[0].priceUsd;
-      const liquidityUsd = pairs[0].liquidity.usd;
-      const fdv = pairs[0].fdv;
-
-      // Update state with the fetched data
-      setPrice(priceUsd);
-      setLiquidity(formatValue(liquidityUsd));
-      setFdv(formatValue(fdv));
-
-      if (!isNaN(fdv) && circulatingSupply !== null) {
-        const calculatedMarketCap = circulatingSupply * priceUsd;
-        setMarketCap(formatValue(calculatedMarketCap));
-      } else {
-        console.error("Invalid FDV or circulating supply value");
-      }
-    } else {
-      console.error("No pairs found in the response");
-    }
-  } catch (error) {
-    console.error("Error fetching token data:", error);
-  }
-};
-
-  useEffect(() => {
-    const interval = setInterval(fetchTokenData, 5000); // Fetch price every 5 seconds
-    return () => clearInterval(interval); // Clean up interval on component unmount
-    // eslint-disable-next-line
-  }, []);
-
   const coinGeckoId = "pepefork";
 
   const [ethBalance, setEthBalance] = useState<number | null>(null);
@@ -112,6 +72,21 @@ const fetchEthBalance = async () => {
     return () => clearInterval(interval); // Clean up interval on component unmount
    // eslint-disable-next-line
   }, []);
+
+
+  useEffect(() => {
+  // Fetch both circulating supply and price data
+  const fetchData = async () => {
+    await fetchCirculatingSupply();
+    await fetchTokenData();
+  };
+
+  fetchData(); // Initial fetch
+
+  const interval = setInterval(fetchData, 5000); // Fetch data every 5 seconds
+  return () => clearInterval(interval); // Clean up interval on component unmount
+}, []);
+
 
   const fetchCirculatingSupply = async () => {
     try {
@@ -156,6 +131,47 @@ const fetchEthBalance = async () => {
     const interval = setInterval(fetchCirculatingSupply, 5000); // Fetch price every 5 seconds
     return () => clearInterval(interval); // Clean up interval on component unmount
 
+    // eslint-disable-next-line
+  }, []);
+
+
+  // Fetch data from Dexscreener API and update price, liquidity, and FDV
+  const fetchTokenData = async () => {
+  try {
+    const response = await fetch(
+      "https://api.dexscreener.io/latest/dex/tokens/0x6A7eFF1e2c355AD6eb91BEbB5ded49257F3FED98"
+    );
+    const data = await response.json();
+
+    // Extract priceUsd, liquidityUsd, and fdv from the fetched data
+    const pairs = data.pairs;
+    if (pairs && pairs.length > 0) {
+      const priceUsd = pairs[0].priceUsd;
+      const liquidityUsd = pairs[0].liquidity.usd;
+      const fdv = pairs[0].fdv;
+
+      // Update state with the fetched data
+      setPrice(priceUsd);
+      setLiquidity(formatValue(liquidityUsd));
+      setFdv(formatValue(fdv));
+
+      if (circulatingSupply !== null && !isNaN(circulatingSupply)){
+        const calculatedMarketCap = circulatingSupply * priceUsd;
+        setMarketCap(formatValue(calculatedMarketCap));
+      } else {
+        console.error("Invalid FDV or circulating supply value");
+      }
+    } else {
+      console.error("No pairs found in the response");
+    }
+  } catch (error) {
+    console.error("Error fetching token data:", error);
+  }
+};
+
+  useEffect(() => {
+    const interval = setInterval(fetchTokenData, 5000); // Fetch price every 5 seconds
+    return () => clearInterval(interval); // Clean up interval on component unmount
     // eslint-disable-next-line
   }, []);
 
