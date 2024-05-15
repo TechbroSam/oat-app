@@ -13,7 +13,7 @@ export default function Home() {
     null
   );
   const deadWalletAddress = "0x000000000000000000000000000000000000dEaD";
-  const contractAddress = "0x576e2bed8f7b46d34016198911cdf9886f78bea7";
+  const contractAddress = "0x6A7eFF1e2c355AD6eb91BEbB5ded49257F3FED98";
 
   const [price, setPrice] = useState<number | null>(null);
   const [liquidity, setLiquidity] = useState<string | null>(null);
@@ -38,7 +38,7 @@ export default function Home() {
   const fetchTokenData = async () => {
   try {
     const response = await fetch(
-      "https://api.dexscreener.io/latest/dex/tokens/0x576e2bed8f7b46d34016198911cdf9886f78bea7"
+      "https://api.dexscreener.io/latest/dex/tokens/0x6A7eFF1e2c355AD6eb91BEbB5ded49257F3FED98"
     );
     const data = await response.json();
 
@@ -89,15 +89,15 @@ export default function Home() {
   const ethereumAddress = "0xD106dE5cD9A2954dAa48FCCA338DECC8A092c051";
 
   // Fetch ETH balance from Etherscan API
-  const fetchEthBalance = async () => {
-    try {
-      const response = await axios.get(
-        `https://api.etherscan.io/api?module=account&action=balance&address=${ethereumAddress}&tag=latest&apikey=${etherscanApiKey}`
-      );
+const fetchEthBalance = async () => {
+  try {
+    const response = await axios.get(
+      `https://api.etherscan.io/api?module=account&action=balance&address=${ethereumAddress}&tag=latest&apikey=${etherscanApiKey}`
+    );
 
-  if (response.data && response.data.result !== undefined) {
+    if (response.data && response.data.result !== undefined) {
       // Convert balance from wei to ETH
-      const balanceInEth = Number(response.data.result) / 1e18;
+      const balanceInEth: number = Number(response.data.result) / 1e18;
       setEthBalance(Number(balanceInEth.toFixed(2)));
     } else {
       console.error("Invalid response data received:", response.data);
@@ -106,6 +106,7 @@ export default function Home() {
     console.error("Error fetching ETH balance:", error);
   }
 };
+
   useEffect(() => {
     const interval = setInterval(fetchEthBalance, 5000); // Fetch price every 5 seconds
     return () => clearInterval(interval); // Clean up interval on component unmount
@@ -161,7 +162,7 @@ export default function Home() {
   const fetchHoldersCount = async () => {
     // Define the endpoint URL and parameters
     const url =
-      "https://api.covalenthq.com/v1/eth-mainnet/tokens/0x576e2bed8f7b46d34016198911cdf9886f78bea7/token_holders_v2/";
+      "https://api.covalenthq.com/v1/eth-mainnet/tokens/0x6A7eFF1e2c355AD6eb91BEbB5ded49257F3FED98/token_holders_v2/";
     const params: {
       key: string;
       "page-number": string; // Convert the page number to string
