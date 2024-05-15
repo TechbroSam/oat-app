@@ -95,14 +95,17 @@ export default function Home() {
         `https://api.etherscan.io/api?module=account&action=balance&address=${ethereumAddress}&tag=latest&apikey=${etherscanApiKey}`
       );
 
+  if (response.data && response.data.result !== undefined) {
       // Convert balance from wei to ETH
-      const balanceInEth: number = Number(response.data.result) / 1e18;
+      const balanceInEth = Number(response.data.result) / 1e18;
       setEthBalance(Number(balanceInEth.toFixed(2)));
-    } catch (error) {
-      console.error("Error fetching ETH balance:", error);
+    } else {
+      console.error("Invalid response data received:", response.data);
     }
-  };
-
+  } catch (error) {
+    console.error("Error fetching ETH balance:", error);
+  }
+};
   useEffect(() => {
     const interval = setInterval(fetchEthBalance, 5000); // Fetch price every 5 seconds
     return () => clearInterval(interval); // Clean up interval on component unmount
