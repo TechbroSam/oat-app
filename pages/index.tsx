@@ -12,8 +12,8 @@ export default function Home() {
   const [circulatingSupply, setCirculatingSupply] = useState<number | null>(
     null
   );
-  const deadWalletAddress = "0x000000000000000000000000000000000000dEaD";
-  const contractAddress = "0x6A7eFF1e2c355AD6eb91BEbB5ded49257F3FED98";
+  const deadWalletAddress = "0x000000000000000000000000000000000000dEaD"; 
+  const contractAddress = "0xb9f599ce614Feb2e1BBe58F180F370D05b39344E";
 
   const [price, setPrice] = useState<number | null>(null);
   const [liquidity, setLiquidity] = useState<string | null>(null);
@@ -34,19 +34,18 @@ export default function Home() {
     }
   };
 
-  const coinGeckoId = "pepefork";
-
   const [ethBalance, setEthBalance] = useState<number | null>(null);
 
-  const [holdersCount, setHoldersCount] = useState<number | null>(null);
-  const apiKey = "cqt_rQmTdhFDM7HhbxXwmHYdYTHjjQwv"; // Replace with your Covalent API key
+  const [holdersCount, setHoldersCount] = useState(null);
 
   const [marketCap, setMarketCap] = useState<string | null>(null);
 
   const etherscanApiKey = process.env.NEXT_PUBLIC_ETHERSCAN_API_KEY;
 
+  const ethplorerApiKey = process.env.NEXT_PUBLIC_ETHPLORER_API_KEY;
+
   // Ethereum address to fetch balance for
-  const ethereumAddress = "0xD106dE5cD9A2954dAa48FCCA338DECC8A092c051";
+  const ethereumAddress = process.env.NEXT_PUBLIC_OATDEV_ADDRESS;
 
   // Fetch ETH balance from Etherscan API
 const fetchEthBalance = async () => {
@@ -57,8 +56,8 @@ const fetchEthBalance = async () => {
 
     if (response.data && response.data.result !== undefined) {
       // Convert balance from wei to ETH
-      const balanceInEth: number = Number(response.data.result) / 1e18;
-      setEthBalance(Number(balanceInEth.toFixed(2)));
+      const balanceInEth: number = Number(response.data.result) / 1e18; 
+      setEthBalance(Number(balanceInEth.toFixed(3)));
     } else {
       console.error("Invalid response data received:", response.data);
     }
@@ -139,7 +138,7 @@ const fetchEthBalance = async () => {
    const fetchTokenData = async () => {
     try {
       const response = await fetch(
-        "https://api.dexscreener.io/latest/dex/tokens/0x6A7eFF1e2c355AD6eb91BEbB5ded49257F3FED98"
+        `https://api.dexscreener.io/latest/dex/tokens/${contractAddress}` 
       );
       const data = await response.json();
 
@@ -166,28 +165,19 @@ const fetchEthBalance = async () => {
     // eslint-disable-next-line
   }, []);
 
-  // Function to fetch holders count from Etherscan API
-  const fetchHoldersCount = async () => {
-    try {
-      const response = await axios.get(
-        `https://api.etherscan.io/api?module=token&action=tokenholderlist&contractaddress=${contractAddress}&page=1&offset=10000&apikey=${etherscanApiKey}`
-      );
-
-      if (response.data && response.data.result) {
-        const holders = response.data.result;
-        setHoldersCount(holders.length);
-      } else {
-        console.error("Invalid response data received:", response.data);
-      }
-    } catch (error) {
-      console.error("Error fetching holders count:", error);
-    }
-  };
 
   useEffect(() => {
-    const interval = setInterval(fetchHoldersCount, 5000);
-    return () => clearInterval(interval);
+    // Fetch token info from Ethplorer
+    axios.get(`https://api.ethplorer.io/getTokenInfo/${contractAddress}?apiKey=${ethplorerApiKey}`)
+      .then(response => {
+        const data = response.data;
+        setHoldersCount(data.holdersCount);
+      })
+      .catch(error => {
+        console.error('Error fetching data from Ethplorer:', error);
+      });
   }, []);
+
 
 
     useEffect(() => {
@@ -260,14 +250,14 @@ const fetchEthBalance = async () => {
               </div>
               <div className="flex justify-center mt-3 md:mt-4">
                 <h3 className="text-[12px] md:text-xl font-bold drop-shadow-md">
-                  0xf951ead486490bd64193fd2ea475697a9fd5d582
+                  {contractAddress}
                 </h3>
               </div>
               <div className="flex justify-between px-7 md:px-11 mt-2 md:pt-1">
                 <div>
                   <h6 className="text-[8px] md:text-xs text-[#F2C572]">TS</h6>
                   <h4 className="text-[10px] md:text-[18px] font-medium">
-                    100,000,000
+                  420,690,000,000,000
                   </h4>
                 </div>
                 <div>
@@ -353,7 +343,7 @@ const fetchEthBalance = async () => {
               <div className="opacity-70 text-xs md:text-base">Market cap</div>
               <div className="flex items-center text-lg font-semibold">
                 <div className="text-sm md:text-lg">
-                  {marketCap != null ? `$${marketCap}` : <span className="text-sm">Loading...</span>}
+                  {fdv != null ? `$${fdv}` : <span className="text-sm">Loading...</span>}
                 </div>
               </div>
             </div>
@@ -372,7 +362,7 @@ const fetchEthBalance = async () => {
             <div className="flex flex-col items-center">
               <div className="opacity-70 text-xs md:text-base">Fdv</div>
               <div className="flex items-center text-lg font-semibold">
-                <div className="text-sm md:text-lg">{fdv != null ? `$${fdv}` : <span className="text-sm">Loading...</span>}</div>
+                <div className="text-sm md:text-lg">{marketCap != null ? `$${marketCap}` : <span className="text-sm">Loading...</span>}</div>
               </div>
             </div>
           </div>
