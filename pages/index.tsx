@@ -195,7 +195,7 @@ const fetchEthBalance = async () => {
         <div className="antialiased flex items-center justify-center sm:mt-[5%] mt-10">
           <h1
             className="flex text-[#F2C572] font-bold text-[16px] justify-center items-center text-center 
-            leading-tight lg:leading-[4rem] md:text-4xl lg:text-6xl antialiased "
+            leading-tight lg:leading-[4rem] md:text-4xl lg:text-6xl antialiased"
           >
             BUILDING GENERATIONAL WEALTH...
             <br />
@@ -265,7 +265,7 @@ const fetchEthBalance = async () => {
                   <h4 className="text-[10px] md:text-[18px] font-medium">
                       <p>{circulatingSupply
                     ? Number(circulatingSupply).toLocaleString()
-                    : <span className="text-sm">Loading...</span>}</p>
+                    : <span>Loading...</span>}</p>
                   </h4>
                 </div>
               </div>
@@ -311,9 +311,9 @@ const fetchEthBalance = async () => {
             </div>
           </div>
         </div>
-        <hr className="md:h-px h-[0.05rem] w-full md:w-[50%] my-2 bg-gray-200 border-0 dark:bg-gray-700"></hr>
+        <hr className="md:h-px h-[0.05rem] w-[70%] my-2 bg-gray-200 border-0 dark:bg-gray-700"></hr>
 
-        <div className="grid grid-cols-5 mt-5 w-full divide-x md:w-[50%] md:mb-28 mb-14 gap-x-4">
+        <div className="md:grid justify-center md:grid-cols-5 mt-5 md:divide-x lg:w-[70%] md:mb-28 mb-14 gap-x-4">
           <div className="flex flex-col items-center">
             <div className="flex flex-col items-center">
               <div className="opacity-70 text-xs md:text-base">Price</div>
@@ -325,7 +325,7 @@ const fetchEthBalance = async () => {
             </div>
           </div>
 
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center mt-2 md:mt-0">
             <div className="flex flex-col items-center">
               <div className="opacity-70 text-xs md:text-base">Holders</div>
               <div className="flex items-center text-lg font-semibold">
@@ -338,7 +338,7 @@ const fetchEthBalance = async () => {
             </div>
           </div>
 
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center mt-2 md:mt-0">
             <div className="flex flex-col items-center">
               <div className="opacity-70 text-xs md:text-base">Market cap</div>
               <div className="flex items-center text-lg font-semibold">
@@ -348,7 +348,7 @@ const fetchEthBalance = async () => {
               </div>
             </div>
           </div>
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center mt-2 md:mt-0">
             <div className="flex flex-col items-center">
               <div className="opacity-70 text-xs md:text-base">Liquidity</div>
               <div className="flex items-center text-lg font-semibold">
@@ -358,7 +358,7 @@ const fetchEthBalance = async () => {
               </div>
             </div>
           </div>
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center mt-2 md:mt-0">
             <div className="flex flex-col items-center">
               <div className="opacity-70 text-xs md:text-base">Fdv</div>
               <div className="flex items-center text-lg font-semibold">
