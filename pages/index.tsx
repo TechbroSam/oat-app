@@ -136,38 +136,29 @@ const fetchEthBalance = async () => {
 
 
   // Fetch data from Dexscreener API and update price, liquidity, and FDV
-  const fetchTokenData = async () => {
-  try {
-    const response = await fetch(
-      "https://api.dexscreener.io/latest/dex/tokens/0x6A7eFF1e2c355AD6eb91BEbB5ded49257F3FED98"
-    );
-    const data = await response.json();
+   const fetchTokenData = async () => {
+    try {
+      const response = await fetch(
+        "https://api.dexscreener.io/latest/dex/tokens/0x6A7eFF1e2c355AD6eb91BEbB5ded49257F3FED98"
+      );
+      const data = await response.json();
 
-    // Extract priceUsd, liquidityUsd, and fdv from the fetched data
-    const pairs = data.pairs;
-    if (pairs && pairs.length > 0) {
-      const priceUsd = pairs[0].priceUsd;
-      const liquidityUsd = pairs[0].liquidity.usd;
-      const fdv = pairs[0].fdv;
+      const pairs = data.pairs;
+      if (pairs && pairs.length > 0) {
+        const priceUsd = pairs[0].priceUsd;
+        const liquidityUsd = pairs[0].liquidity.usd;
+        const fdv = pairs[0].fdv;
 
-      // Update state with the fetched data
-      setPrice(priceUsd);
-      setLiquidity(formatValue(liquidityUsd));
-      setFdv(formatValue(fdv));
-
-      if (!isNaN(priceUsd) && circulatingSupply !== null){
-        const calculatedMarketCap = circulatingSupply * priceUsd;
-        setMarketCap(formatValue(calculatedMarketCap));
+        setPrice(priceUsd);
+        setLiquidity(formatValue(liquidityUsd));
+        setFdv(formatValue(fdv));
       } else {
-        console.error("Invalid price or circulating supply value");
+        console.error("No pairs found in the response");
       }
-    } else {
-      console.error("No pairs found in the response");
+    } catch (error) {
+      console.error("Error fetching token data:", error);
     }
-  } catch (error) {
-    console.error("Error fetching token data:", error);
-  }
-};
+  };
 
   useEffect(() => {
     const interval = setInterval(fetchTokenData, 5000); // Fetch price every 5 seconds
@@ -175,41 +166,18 @@ const fetchEthBalance = async () => {
     // eslint-disable-next-line
   }, []);
 
+  // Function to fetch holders count from Etherscan API
   const fetchHoldersCount = async () => {
-    // Define the endpoint URL and parameters
-    const url =
-      "https://api.covalenthq.com/v1/eth-mainnet/tokens/0x6A7eFF1e2c355AD6eb91BEbB5ded49257F3FED98/token_holders_v2/";
-    const params: {
-      key: string;
-      "page-number": string; // Convert the page number to string
-    } = { key: apiKey, "page-number": "0" };
-
     try {
-      // Make an initial request to get the first page of results
-      const response = await fetch(`${url}?${new URLSearchParams(params)}`);
-      const result = await response.json();
-
-      // Extract the total number of pages from the response
-      const numPages = Math.floor(
-        result.data.pagination.total_count / result.data.pagination.page_size
+      const response = await axios.get(
+        `https://api.etherscan.io/api?module=token&action=tokenholderlist&contractaddress=${contractAddress}&page=1&offset=10000&apikey=${etherscanApiKey}`
       );
 
-      // Create an empty array to store the token holders
-      let tokenHolders: any[] = [];
-
-      // Iterate through all the pages of results and append the token holders to the array
-      for (let page = 0; page < numPages; page++) {
-        params["page-number"] = String(page); // Convert page number to string
-        const pageResponse = await fetch(
-          `${url}?${new URLSearchParams(params)}`
-        );
-        const pageResult = await pageResponse.json();
-        tokenHolders = tokenHolders.concat(pageResult.data.items);
-
-        // Set the holders count on the last page
-        if (page === numPages - 1) {
-          setHoldersCount(tokenHolders.length);
-        }
+      if (response.data && response.data.result) {
+        const holders = response.data.result;
+        setHoldersCount(holders.length);
+      } else {
+        console.error("Invalid response data received:", response.data);
       }
     } catch (error) {
       console.error("Error fetching holders count:", error);
@@ -220,6 +188,14 @@ const fetchEthBalance = async () => {
     const interval = setInterval(fetchHoldersCount, 5000);
     return () => clearInterval(interval);
   }, []);
+
+
+    useEffect(() => {
+    if (price !== null && circulatingSupply !== null) {
+      const calculatedMarketCap = circulatingSupply * price;
+      setMarketCap(formatValue(calculatedMarketCap));
+    }
+  }, [price, circulatingSupply]);
 
   return (
     <div className="">
@@ -291,7 +267,7 @@ const fetchEthBalance = async () => {
                 <div>
                   <h6 className="text-[8px] md:text-xs text-[#F2C572]">TS</h6>
                   <h4 className="text-[10px] md:text-[18px] font-medium">
-                    420,690,000
+                    100,000,000
                   </h4>
                 </div>
                 <div>
@@ -374,7 +350,7 @@ const fetchEthBalance = async () => {
 
           <div className="flex flex-col items-center">
             <div className="flex flex-col items-center">
-              <div className="opacity-70 text-xs md:text-base">Market Cap</div>
+              <div className="opacity-70 text-xs md:text-base">Market cap</div>
               <div className="flex items-center text-lg font-semibold">
                 <div className="text-sm md:text-lg">
                   {marketCap != null ? `$${marketCap}` : <span className="text-sm">Loading...</span>}
