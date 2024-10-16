@@ -10,8 +10,8 @@ function Footer() {
       <div className="flex items-center justify-center py-6 md:py-12 md:space-x-8 space-x-4">
         <a
           className="flex w-7 h-7 md:w-14 md:h-14 bg-[#F2C572] rounded-full items-center justify-center"
-          href="https://www.facebook.com/profile.php?id=100089909078977"
-          target="_blank"
+          href="#"
+          
         >
           <Tooltip content="Twitter">
           <img
@@ -25,8 +25,8 @@ function Footer() {
         </a>
         <a
           className="flex w-7 h-7 md:w-14 md:h-14 bg-[#F2C572] rounded-full items-center justify-center"
-          href="https://www.facebook.com/profile.php?id=100089909078977"
-          target="_blank"
+          href="#"
+          
         >
           <Tooltip content="Email">
           <img
@@ -40,8 +40,8 @@ function Footer() {
         </a>
         <a
           className="flex w-7 h-7 md:w-14 md:h-14 bg-[#F2C572] rounded-full items-center justify-center"
-          href="https://www.facebook.com/profile.php?id=100089909078977"
-          target="_blank"
+          href="#"
+          
         >
           <Tooltip content="Dextools">
           <img
@@ -55,8 +55,8 @@ function Footer() {
         </a>
         <a
           className="flex w-7 h-7 md:w-14 md:h-14 bg-[#F2C572] rounded-full items-center justify-center"
-          href="https://www.facebook.com/profile.php?id=100089909078977"
-          target="_blank"
+          href="#"
+          
         >
            <Tooltip content="Etherscan">
           <img
@@ -70,8 +70,8 @@ function Footer() {
         </a>
         <a
           className="flex w-7 h-7 md:w-14 md:h-14 bg-[#F2C572] rounded-full items-center justify-center"
-          href="https://www.facebook.com/profile.php?id=100089909078977"
-          target="_blank"
+          href="#"
+          
         >
            <Tooltip content="Telegram">
           <img
@@ -84,12 +84,12 @@ function Footer() {
           </Tooltip>
         </a>
       </div>
-      <div className="rounded-md bg-[#F2C572] px-2 py-1 md:px-5 md:py-2 text-[#0d0d0d] my-5 ">
-        <h1 className="opacity-90 text-[10px] md:text-base font-medium">
+      <div className="rounded-md bg-[#F2C572] px-4 py-1 md:px-5 md:py-2 text-[#0d0d0d] my-5 text-center justify-center">
+        <h1 className="flex opacity-90 text-[0.625rem] md:text-base font-medium text-center">
           LIQUIDITY SECURED BY OATLOCKER
         </h1>
       </div>
-      <div className="text-[10px] md:text-base">
+      <div className="text-[0.625rem] md:text-base text-center justify-center">
         <span className="text-base">&copy;</span> COPYRIGHT{" "}
         <span className="md:text-sm">2023</span>{" "}
         <strong>

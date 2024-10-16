@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "@/components/Swapbar";
 import Head from "next/head";
 import Footer from "@/components/Footer";
-import WalletButton from "@/components/LockerConnect";
+
 
 function Locker() {
   return (
@@ -14,7 +14,8 @@ function Locker() {
             O<span className="text-[#F2C572]">A</span>T LOCKER
           </h1>
           <h3 className="mt-2 text-xs md:text-sm text-center">
-            Dear <span className="text-[#F2C572]">Anon</span>, investors confidence starts here.
+            Dear <span className="text-[#F2C572]">Anon</span>, investors
+            confidence starts here.
           </h3>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 mt-10 text-center justify-center w-full md:w-[50%] mb-4">
@@ -42,13 +43,22 @@ function Locker() {
                 width="40px"
                 className="mr-3 h-10 w-10"
               />
-              <div className="md:text-xl font-bold text-center md:text-left">Uniswap V2 Locker</div>
+              <div className="md:text-xl font-bold text-center md:text-left">
+                Uniswap V2 Locker
+              </div>
             </div>
-            <img src="img/liqlock.png" alt="" className="opacity-[0.05] w-[5rem] md:w-[7rem] h-[5rem] md:h-[7rem]" />
+            <img
+              src="img/liqlock.png"
+              alt=""
+              className="opacity-[0.05] w-[5rem] md:w-[7rem] h-[5rem] md:h-[7rem]"
+            />
           </div>
           <div className="text-center md:text-left">
             <p className="font-normal text-base">
-              Use the locker to prove to investors you have locked liquidity. <br className="hidden md:block"/> If you are not a token developer, this section is almost definitely <br className="hidden md:block"/> not for you.
+              Use the locker to prove to investors you have locked liquidity.{" "}
+              <br className="hidden md:block" /> If you are not a token
+              developer, this section is almost definitely{" "}
+              <br className="hidden md:block" /> not for you.
             </p>
             <p className="mt-3">OAT Locker offers</p>
             <ul className="list-disc pl-5 mt-1 font-normal text-base">
@@ -58,7 +68,6 @@ function Locker() {
               <li>Lock ownership transfer</li>
             </ul>
           </div>
-          <WalletButton />
         </div>
         <Footer />
       </main>

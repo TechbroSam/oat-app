@@ -63,7 +63,7 @@ const MobileNav: React.FC<NavbarProps> = ({ open, setOpen }) => {
         </Link>
         <Link
           className="text-xl font-normal my-4 ulnav"
-          href="/staking"
+          href="#"
           onClick={() =>
             setTimeout(() => {
               setOpen(!open);
@@ -74,7 +74,7 @@ const MobileNav: React.FC<NavbarProps> = ({ open, setOpen }) => {
         </Link>
         <Link
           className="text-xl font-normal my-4 ulnav"
-          href="/whitepaper.pdf"
+          href="#"
           onClick={() =>
             setTimeout(() => {
               setOpen(!open);
@@ -139,10 +139,10 @@ export default function Navbar() {
           <Link href="/locker" target="_blank">
             <ul className="ulnav mx-4 md:text-xs lg:text-lg">LOCKER</ul>
           </Link>
-          <Link href="/swap" target="_blank">
+          <Link href="#">
             <ul className="ulnav mx-4 md:text-xs lg:text-lg">OATBANK</ul>
           </Link>
-          <Link href="/staking" target="_blank">
+          <Link href="#">
             <ul className="ulnav mx-4 md:text-xs lg:text-lg">WHITEPAPER</ul>
           </Link>
         </div>
