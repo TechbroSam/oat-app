@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "@/components/Swapbar";
 import Head from "next/head";
 import Footer from "@/components/Footer";
+import LockerConnect from "@/components/LockerConnect";
 
 
 function Locker() {
@@ -68,6 +69,7 @@ function Locker() {
               <li>Lock ownership transfer</li>
             </ul>
           </div>
+          <LockerConnect/>
         </div>
         <Footer />
       </main>
